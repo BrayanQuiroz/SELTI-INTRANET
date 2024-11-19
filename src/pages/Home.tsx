@@ -11,10 +11,11 @@ import config from "../utils/urls.ts"
 import axios,{ AxiosError} from "axios";
 import {jwtDecode} from "jwt-decode";
 
-
 type FormData = {
    usuario: string;
    password: string;
+   resetPass: string;
+   resetRepit: string;
 }
 
 const Home = () =>{
@@ -28,11 +29,18 @@ const Home = () =>{
    const {register,
       handleSubmit} = useForm<FormData>();
 
+   const [isModalOpen, setIsModalOpen] = useState(false);
+
    const onSubmit: SubmitHandler<FormData> = async (data) =>{
       const {usuario, password} = data;
 
       if (!usuario || !password) {
-         toast.error('Ingrese usuario y contraseña');
+         toast.error('Ingrese usuario y contraseña', {
+            style: {
+               background: '#333',
+               color: '#fff',
+            },
+         });
          return;
       }
 
@@ -44,19 +52,54 @@ const Home = () =>{
 
          const {token} = response.data;
          const decodedToken = jwtDecode(token)
-         console.log(decodedToken)
+         const ValueReset = decodedToken.ValueReset;
 
+         if (ValueReset){
+            setIsModalOpen(true);
+         }
       }catch(error){
          if (error instanceof AxiosError) {
             console.log(error.response?.data.error)
+            toast.error(error.response?.data.error, {
+               style: {
+                  background: '#333',
+                  color: '#fff',
+               },
+            })
          }
       }
    }
+
+   const handleUpdatePassword: SubmitHandler<FormData> = async (data) =>  {
+
+      const {resetPass , resetRepit} = data;
+
+      const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*]{11,}$/;
+
+      if(resetPass !== resetRepit){
+         toast.error("Las contraseñas no son iguales.", {
+            style: {
+               background: '#333',
+               color: '#fff',
+            },
+         });
+         return;
+      }
+
+      if(!regexPassword.test(resetRepit)){
+         toast.error("La contraseña debe cumplir los requisitos.", {
+            style: {
+               background: '#333',
+               color: '#fff',
+            },
+         });
+         return;
+      }
+   }
+
    useEffect(() => {
       document.title = "Iniciar sesión";
    }, []);
-
-   const [isModalOpen, setIsModalOpen] = useState(false);
 
    return (
          <div className="w-full flex flex-col items-center ">
@@ -100,40 +143,46 @@ const Home = () =>{
                   </a>
                </div>
             </form>
+
             <Modal isOpen={isModalOpen}
                    textModal="Actualizar contraseña"
                    onClose={() => setIsModalOpen(false)}>
-               <Input
-                  label="Nueva contraseña"
-                  className="w-[400px]"
-                  type="text"
-                  id="usuario"
-                  {...register("password")}
-               />
-               <Input
-                  label="Repita nueva contraseña"
-                  className="w-[400px]"
-                  type="password"
-                  id="password"
-               />
-               <div className="w-full flex justify-center items-center">
-                  <p className="w-[400px] text-[15px]">
-                     La contraseña debe tener 12 dígitos y al menos una mayúscula, un carácter especial y un número
-                  </p>
-               </div>
-               <div className="w-full flex justify-end p-4">
-                  <Buttons
-                     className="text-sm mr-4 text-white"
-                  >
-                     ACTUALIZAR
-                  </Buttons>
-                  <Buttons
-                     className="text-redMain text-sm bg-white border border-redMain  hover:bg-redMain hover:text-white transition "
-                     onClick={() => setIsModalOpen(false)}
-                  >
-                     CANCELAR
-                  </Buttons>
-               </div>
+
+               <form onSubmit={handleSubmit(handleUpdatePassword)}>
+                  <Input
+                     label="Nueva contraseña"
+                     className="w-[400px]"
+                     type="password"
+                     id="resetPass"
+                     {...register("resetPass")}
+                  />
+                  <Input
+                     label="Repita nueva contraseña"
+                     className="w-[400px]"
+                     type="password"
+                     id="resetRepit"
+                     {...register("resetRepit")}
+                  />
+                  <div className="w-full flex justify-center items-center">
+                     <p className="w-[400px] text-[15px]">
+                        La contraseña debe tener 12 dígitos y al menos una mayúscula, un carácter especial y un número
+                     </p>
+                  </div>
+                  <div className="w-full flex justify-end p-4">
+                     <Buttons
+                        className="text-sm mr-4 text-white"
+                     >
+                        ACTUALIZAR
+                     </Buttons>
+                     <Buttons
+                        className="text-redMain text-sm bg-white border border-redMain  hover:bg-redMain hover:text-white transition "
+                        onClick={() => setIsModalOpen(false)}
+                     >
+                        CANCELAR
+                     </Buttons>
+                  </div>
+               </form>
+
 
             </Modal>
          </div>
