@@ -72,7 +72,7 @@ const Home = () =>{
 
    const handleUpdatePassword: SubmitHandler<FormData> = async (data) =>  {
 
-      const {resetPass , resetRepit} = data;
+      const {resetPass , resetRepit, usuario} = data;
 
       const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*]{11,}$/;
 
@@ -95,6 +95,24 @@ const Home = () =>{
          });
          return;
       }
+
+      try{
+         await api.put('/Update/SeltiResetPass/',{
+            usuario: usuario,
+            passusu: resetPass
+         })
+         setIsModalOpen(false);
+         toast.success("Tu contraseña fue cambiada exitosamente")
+      }catch (error) {
+         if (error instanceof AxiosError) {
+            toast.error(error.response?.data.error, {
+               style: {
+                  background: '#333',
+                  color: '#fff',
+               },
+            })
+         }
+      }
    }
 
    useEffect(() => {
@@ -106,7 +124,7 @@ const Home = () =>{
             <Toaster />
             <form onSubmit={handleSubmit(onSubmit)}
                   className="w-[580px] flex flex-col items-center text-center bg-white rounded-xl">
-               <div className="flex flex-col w-[400px] items-center border-b-4 border-red-600 mb-5">
+               <div className="flex flex-col items-center w-[400px]  border-b-4 border-red-600 mb-5">
                   <img className="w-[90px] mt-4 self-center" src={logoSelti} alt=""/>
                   <p className="text-xl pt-2 text-gray-600 font-bold">Sistema de Sello</p>
                   <p className="text-xl pb-4 text-redMain font-bold">LIBRE DE TRABAJO INFANTIL</p>
