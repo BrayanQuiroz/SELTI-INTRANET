@@ -1,10 +1,31 @@
-import {createContext, useEffect, useState} from "react";
+import React, {createContext, ReactNode, useEffect, useState} from "react";
 
+type AutData = {
+   userId: string | null;
+   usernameid: string | null;
+   nameuser: string | null;
+   roleName: string | null;
+   usuarioName: string | null;
+   rucUsuario: string | null;
+   correo: string | null;
+   codigoEdicion: string | null;
+   codigoEtapa: string | null;
+   flaglinea: string | null;
+}
 
-export const AuthContext = createContext();
+type ContextType = {
+   authData?: AutData;
+   AuthDataUpdate: (newAuthData: Partial<AutData>) => void;
+   handleLogout: () => void;
+}
 
-export const AuthProvider =({children})=>{
-   const [authData, setAuthData] = useState({
+export const AuthContext = createContext<ContextType>({
+   AuthDataUpdate: () => {},
+   handleLogout: () => {}
+});
+
+export const AuthProvider:React.FC<{children: ReactNode}> =({children})=>{
+   const [authData, setAuthData] = useState<AutData>({
       userId:null,
       usernameid: null,
       nameuser: null,
@@ -15,8 +36,7 @@ export const AuthProvider =({children})=>{
       codigoEdicion:null,
       codigoEtapa: null,
       flaglinea: null,
-      AuthDataUpdate: () => {},
-      handleLogout: () => {},
+
    })
 
    useEffect( ()=>{
@@ -31,13 +51,14 @@ export const AuthProvider =({children})=>{
       localStorage.setItem('authData', JSON.stringify(authData));
    }, [authData]);
 
-   const AuthDataUpdate = (newAuthData) =>{
-      setAuthData((prevAuthData)=>(
+   const AuthDataUpdate = (newAuthData: Partial<AutData>) =>{
+      setAuthData((prevAuthDataUpdate)=>(
          {
-            ...prevAuthData,
+            ...prevAuthDataUpdate,
             ...newAuthData,
          }));
    }
+
 
    const handleLogout = () => {
 
@@ -45,9 +66,6 @@ export const AuthProvider =({children})=>{
          usernameid: null,
          nameuser: null,
          roleName: null,
-         AuthDataUpdate(): void {
-         }, handleLogout(): void {
-         },
          userId: null,
          usuarioName: null,
          rucUsuario: null,
@@ -61,7 +79,7 @@ export const AuthProvider =({children})=>{
    };
 
    return (
-      <AuthContext.Provider value={[authData, setAuthData, handleLogout]}>
+      <AuthContext.Provider value={{authData, AuthDataUpdate, handleLogout}}>
          {children}
       </AuthContext.Provider>
    )

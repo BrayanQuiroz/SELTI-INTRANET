@@ -52,7 +52,17 @@ const Home = () =>{
 
          const {token} = response.data;
          const decodedToken = jwtDecode(token)
+         const userId = decodedToken.id;
+         const usernameid = decodedToken.numdoc;
+         const usuarioName = decodedToken.usuario;
+         const nameuser = decodedToken.nombre;
+         const rucUsuario = decodedToken.ruc;
+         const roleName = decodedToken.rol;
+         const codigoEtapa = decodedToken.codigoEtapa;
+         const codigoEdicion = decodedToken.codigoEdicion;
+         const flaglinea = decodedToken.flaglinea;
          const ValueReset = decodedToken.ValueReset;
+
 
          if (ValueReset){
             setIsModalOpen(true);
