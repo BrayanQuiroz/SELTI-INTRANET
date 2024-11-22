@@ -5,11 +5,14 @@ import logoSelti from "../assets/log-selti.png"
 import {useForm, SubmitHandler } from "react-hook-form";
 import {toast, Toaster} from "react-hot-toast";
 import {useNavigate} from "react-router-dom";
-import {useEffect, useState} from "react";
+import {useContext, useEffect, useState} from "react";
 import Modal from "../components/Modal.tsx";
 import config from "../utils/urls.ts"
 import axios,{ AxiosError} from "axios";
 import {jwtDecode} from "jwt-decode";
+import {AuthContext} from "../context/AuthContext.tsx";
+import {name} from "autoprefixer";
+
 
 type FormData = {
    usuario: string;
@@ -26,6 +29,8 @@ const Home = () =>{
 
    const navigate = useNavigate();
 
+   const {AuthDataUpdate} = useContext(AuthContext);
+
    const {register,
       handleSubmit} = useForm<FormData>();
 
@@ -36,10 +41,7 @@ const Home = () =>{
 
       if (!usuario || !password) {
          toast.error('Ingrese usuario y contraseña', {
-            style: {
-               background: '#333',
-               color: '#fff',
-            },
+            style: {background: '#333',color: '#fff'},
          });
          return;
       }
@@ -63,18 +65,39 @@ const Home = () =>{
          const flaglinea = decodedToken.flaglinea;
          const ValueReset = decodedToken.ValueReset;
 
+         AuthDataUpdate({
+            userId,
+            usernameid,
+            nameuser,
+            rucUsuario,
+            roleName,
+            usuarioName,
+            codigoEdicion,
+            codigoEtapa,
+            flaglinea,
+         })
+
+         switch (roleName){
+            case "ADMINISTADOR":
+               navigate("/admin/");
+               break;
+            case "POSTULANTE":
+               navigate("/postulante/")
+               break;
+            case "EQUIPO-TECNICO":
+            case "SECRETARIA-TECNICA":
+            case "AUDITOR-EXTERNO":
+               navigate("/seltiProceso/");
+         }
 
          if (ValueReset){
             setIsModalOpen(true);
          }
+
       }catch(error){
          if (error instanceof AxiosError) {
-            console.log(error.response?.data.error)
             toast.error(error.response?.data.error, {
-               style: {
-                  background: '#333',
-                  color: '#fff',
-               },
+               style: {background: '#333',color: '#fff'},
             })
          }
       }
