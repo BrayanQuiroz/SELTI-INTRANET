@@ -11,8 +11,6 @@ import config from "../utils/urls.ts"
 import axios,{ AxiosError} from "axios";
 import {jwtDecode} from "jwt-decode";
 import {AuthContext} from "../context/AuthContext.tsx";
-import {name} from "autoprefixer";
-
 
 type FormData = {
    usuario: string;
@@ -21,7 +19,7 @@ type FormData = {
    resetRepit: string;
 }
 
-const Home = () =>{
+const Login = () =>{
 
    const api = axios.create ({
       baseURL:config.apiUrl
@@ -77,8 +75,11 @@ const Home = () =>{
             flaglinea,
          })
 
+         console.log(roleName)
+
          switch (roleName){
-            case "ADMINISTADOR":
+            case "ADMINISTRADOR":
+               console.log("entre")
                navigate("/admin/");
                break;
             case "POSTULANTE":
@@ -153,11 +154,11 @@ const Home = () =>{
    }, []);
 
    return (
-         <div className="w-full flex flex-col items-center ">
+         <div className="w-full flexCenter h-[calc(100vh-157px)] justify-center">
             <Toaster />
             <form onSubmit={handleSubmit(onSubmit)}
-                  className="w-[580px] flex flex-col items-center text-center bg-white rounded-xl">
-               <div className="flex flex-col items-center w-[400px]  border-b-4 border-red-600 mb-5">
+                  className="w-[580px] flexCenter text-center bg-white rounded-xl">
+               <div className="flexCenter w-[400px]  border-b-4 border-red-600 mb-5">
                   <img className="w-[90px] mt-4 self-center" src={logoSelti} alt=""/>
                   <p className="text-xl pt-2 text-gray-600 font-bold">Sistema de Sello</p>
                   <p className="text-xl pb-4 text-redMain font-bold">LIBRE DE TRABAJO INFANTIL</p>
@@ -233,11 +234,9 @@ const Home = () =>{
                      </Buttons>
                   </div>
                </form>
-
-
             </Modal>
          </div>
    );
 }
 
-export default Home;
+export default Login;

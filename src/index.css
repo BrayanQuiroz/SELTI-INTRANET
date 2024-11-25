@@ -13,3 +13,16 @@ body{
     box-sizing: border-box;
     background:  #EEE;
 }
+
+@layer base{
+    .flexCenter{
+        @apply flex flex-col items-center;
+    }
+
+    .efect-trans{
+        @apply transition duration-300 ease-in-out;
+    }
+    .flex-between{
+        @apply flex items-center justify-between;
+    }
+}
