@@ -139,11 +139,7 @@ const Login = () =>{
          toast.success("Tu contraseña fue cambiada exitosamente")
       }catch (error) {
          if (error instanceof AxiosError) {
-            toast.error(error.response?.data.error, {
-               style: {
-                  background: '#333',
-                  color: '#fff',
-               },
+            toast.error(error.response?.data.error, {style: {background: '#333',color: '#fff',},
             })
          }
       }
@@ -157,31 +153,34 @@ const Login = () =>{
          <div className="w-full flexCenter h-[calc(100vh-157px)] justify-center">
             <Toaster />
             <form onSubmit={handleSubmit(onSubmit)}
-                  className="w-[580px] flexCenter text-center bg-white rounded-xl">
-               <div className="flexCenter w-[400px]  border-b-4 border-red-600 mb-5">
+                  className="w-[530px] flexCenter text-center bg-white rounded-xl">
+               <div className="flexCenter w-[350px]  border-b-4 border-red-600 mb-4">
                   <img className="w-[90px] mt-4 self-center" src={logoSelti} alt=""/>
                   <p className="text-xl pt-2 text-gray-600 font-bold">Sistema de Sello</p>
                   <p className="text-xl pb-4 text-redMain font-bold">LIBRE DE TRABAJO INFANTIL</p>
                </div>
-               <Input
-                  label="Usuario"
-                  className="w-[400px]"
-                  id="usuario"
-                  type="text"
-                  {...register("usuario")}
-               />
-               <Input
-                  label="Contraseña"
-                  className="w-[400px]"
-                  type="password"
-                  id="password"
-                  {...register("password")}
-               />
+               <div className="">
+                  <Input
+                      label="Usuario"
+                      className="w-[350px] mb-2"
+                      id="usuario"
+                      type="text"
+                      {...register("usuario")}
+                  />
+                  <Input
+                      label="Contraseña"
+                      className="w-[350px]"
+                      type="password"
+                      id="password"
+                      {...register("password")}
+                  />
+               </div>
+
 
                <div className="flex flex-col items-center">
                   < Buttons
                      // onClick={() => setIsModalOpen(true)}
-                     className="mt-4 w-[400px] mb-8 text-white">
+                     className="mt-4 w-[350px] mb-8 text-white">
                      INICIAR SESIÓN
                   </Buttons>
                   <a href=""
@@ -203,14 +202,14 @@ const Login = () =>{
                <form onSubmit={handleSubmit(handleUpdatePassword)}>
                   <Input
                      label="Nueva contraseña"
-                     className="w-[400px]"
+                     className="w-[400px] items-center"
                      type="password"
                      id="resetPass"
                      {...register("resetPass")}
                   />
                   <Input
                      label="Repita nueva contraseña"
-                     className="w-[400px]"
+                     className="w-[400px] items-center"
                      type="password"
                      id="resetRepit"
                      {...register("resetRepit")}
