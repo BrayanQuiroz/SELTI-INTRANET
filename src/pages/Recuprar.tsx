@@ -57,7 +57,7 @@ const Recuperar = () => {
 
             <div className="flexCenter">
                < Buttons
-                  className="mt-4 w-[400px] mb-8 text-white">
+                  className="mt-4 w-[400px] mb-8 text-white rounded py-2">
                   GENERAR CONTRASEÑA
                </Buttons>
                <a href=""

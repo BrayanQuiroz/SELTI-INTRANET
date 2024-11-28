@@ -14,7 +14,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>  (
             {label && <label className="text-x font-bold self-start text-redMain">{label}</label>}
             <input
                className={clsx(
-                  "bg-gray-50 border border-gray-300 rounded py-[3px]",
+                  "bg-gray-50 border border-gray-300  py-[3px]",
                   " p-2 mt-2 text-gray-700 text-base focus:outline-none",
                   "focus:ring-2 focus:ring-gray-400 shadow-sm",
                   className

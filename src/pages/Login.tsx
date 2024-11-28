@@ -180,7 +180,7 @@ const Login = () =>{
                <div className="flex flex-col items-center">
                   < Buttons
                      // onClick={() => setIsModalOpen(true)}
-                     className="mt-4 w-[350px] mb-8 text-white">
+                     className="mt-4 w-[350px] mb-8 text-white rounded py-2">
                      INICIAR SESIÓN
                   </Buttons>
                   <a href=""

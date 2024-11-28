@@ -10,8 +10,8 @@ const Buttons: React.FC<Props> = ({children, className,...props}) => {
    return (
       <button
          className={clsx(
-            "bg-redMain font-bold rounded",
-                  "hover:bg-red-600 py-2 px-4",
+            "bg-redMain font-bold",
+                  "hover:bg-red-600 px-4",
                   className
          )}
          {...props}
