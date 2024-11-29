@@ -23,7 +23,7 @@ const Selects: React.FC<SelectProps> = ({options, placeholder,value, onChange, c
     }
 
     return (
-        <div className={clsx("flex flex-col mb-[8px]",
+        <div className={clsx("flex flex-col",
             classNameDiv)}>
             <label htmlFor="" className="mb-[8px] font-bold">{labelP}</label>
             <select

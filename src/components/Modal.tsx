@@ -1,5 +1,6 @@
 import React, {ReactNode} from 'react';
 import clsx from "clsx";
+import Buttons from "./Buttons.tsx";
 
 interface ModalProps {
    isOpen: boolean;
@@ -29,6 +30,20 @@ const Modal: React.FC<ModalProps> = ({textModal, ClassName, isOpen,onClose , chi
                </button>
             </div>
             {children}
+
+            <div>
+               <Buttons
+                  className="text-white"
+               >
+                  Aceptar
+               </Buttons>
+               <Buttons
+                  className=""
+               >
+                  Cancelar
+               </Buttons>
+            </div>
+
          </div>
       </div>
    );

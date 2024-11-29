@@ -12,6 +12,12 @@ type TransFormedData = {
    value: string;
 }
 
+type apiDataState = {
+   descripcion: string;
+   codigo: string;
+}
+
+
 const UsuariosInternos = () => {
 
 
@@ -19,7 +25,7 @@ const UsuariosInternos = () => {
     const api = axios.create({
         baseURL: config.apiUrl
     })
-    const [typeDocument, setTypeDocument] = useState([])
+    const [typeDocument, setTypeDocument] = useState<apiDataState[]>([])
 
     useEffect(() => {
         const ListType = async ()=>{
@@ -36,7 +42,7 @@ const UsuariosInternos = () => {
     }, []);
 
     const dataTransformed: TransFormedData[] = typeDocument.map((item)=>({
-       label: item.abreviatura,
+       label: item.descripcion,
        value: item.codigo,
        })
     )
@@ -62,22 +68,25 @@ const UsuariosInternos = () => {
                </div>
                <Modal isOpen={isModalOpen}
                       textModal="Crear usuario interno"
-                      ClassName="w-[570px]"
+                      ClassName="w-[580px]"
                       onClose={() => setIsModalOpen(false)}>
                    <form className="mx-4 mt-4 flex flex-wrap">
-                       <div className="w-full bg-white">
+                       <div className="w-full bg-white mb-[0.8rem]">
                            <Selects
-                               options={typeDocument}
-                               placeholder="Seleccione documento"
+                               options={dataTransformed}
+                               placeholder="Seleccione tipo de usuario"
                                labelP="Tipo de usuarios"
-                               classNameDiv="w-[210px]"
+                               classNameDiv="w-[230px]"
                            />
+
                        </div>
-                       <div className="flex">
-                           <Input
-                               label="Tipo de documento"
-                               className="mr-4"
-                           />
+                       <div className="flex ">
+                          <Selects
+                             options={dataTransformed}
+                             placeholder="Seleccione documento"
+                             labelP="Tipo de usuarios"
+                             classNameDiv="w-[230px] mr-[1rem]"
+                          />
                            <Input
                                label="Número de identidad"
                                className="m-[0]"
