@@ -153,7 +153,7 @@ const Login = () =>{
          <div className="w-full flexCenter h-[calc(100vh-157px)] justify-center">
             <Toaster />
             <form onSubmit={handleSubmit(onSubmit)}
-                  className="w-[530px] flexCenter text-center bg-white rounded-xl">
+                  className="w-[530px] flexCenter text-center bg-white ">
                <div className="flexCenter w-[350px]  border-b-4 border-red-600 mb-4">
                   <img className="w-[90px] mt-4 self-center" src={logoSelti} alt=""/>
                   <p className="text-xl pt-2 text-gray-600 font-bold">Sistema de Sello</p>
@@ -180,7 +180,7 @@ const Login = () =>{
                <div className="flex flex-col items-center">
                   < Buttons
                      // onClick={() => setIsModalOpen(true)}
-                     className="mt-4 w-[350px] mb-8 text-white rounded py-2">
+                     className="mt-4 w-[350px] mb-8 text-white py-2">
                      INICIAR SESIÓN
                   </Buttons>
                   <a href=""
