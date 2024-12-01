@@ -12,9 +12,13 @@ type TransFormedData = {
    value: string;
 }
 
+
+
 type apiDataState = {
    descripcion: string;
    codigo: string;
+   DESPER: string;
+   CODPER: string;
 }
 
 
@@ -38,7 +42,6 @@ const UsuariosInternos = () => {
             }
         }
         ListType();
-
     }, []);
 
     const dataTransformed: TransFormedData[] = typeDocument.map((item)=>({

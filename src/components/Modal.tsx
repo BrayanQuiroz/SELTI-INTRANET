@@ -31,14 +31,14 @@ const Modal: React.FC<ModalProps> = ({textModal, ClassName, isOpen,onClose , chi
             </div>
             {children}
 
-            <div>
+            <div className="ml-[16px] mt-[16px]">
                <Buttons
                   className="text-white"
                >
                   Aceptar
                </Buttons>
                <Buttons
-                  className=""
+                  className=" bg-white"
                >
                   Cancelar
                </Buttons>
