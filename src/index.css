@@ -25,4 +25,13 @@ body{
     .flex-between{
         @apply flex items-center justify-between;
     }
+    .HoverButton{
+        @apply text-redMain  bg-white border border-redMain  hover:bg-redMain hover:text-white transition
+    }
+    .HoverButtonRed{
+        @apply border border-redMain  hover:bg-white hover:text-redMain transition
+    }
+    .Inputdisabled{
+        @apply text-gray-500  px-4 py-2  focus:ring-0
+    }
 }
