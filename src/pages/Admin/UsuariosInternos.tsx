@@ -305,9 +305,9 @@ const UsuariosInternos = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (
-    <div className="pt-[4rem] ">
+    <div className="pt-[3rem] ">
       <Toaster />
-      <div className="bg-white p-[1rem] ">
+      <div className="bg-white p-[1rem] mb-[3rem]">
         <div className="flex-between border-b-4 border-red-600 pb-2 mb-8">
           <h2 className="text-3xl">Administración de usuarios</h2>
           <Buttons
