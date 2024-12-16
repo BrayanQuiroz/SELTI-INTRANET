@@ -7,7 +7,10 @@ interface ProtectedRoute {
   roles: string[];
 }
 
-export const ProtectedRoute: React.FC<ProtectedRoute> = ({ element, roles }) => {
+export const ProtectedRoute: React.FC<ProtectedRoute> = ({
+  element,
+  roles,
+}) => {
   const { authData, isReady } = useContext(AuthContext);
 
   if (!isReady) {

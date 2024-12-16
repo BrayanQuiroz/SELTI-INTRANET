@@ -34,4 +34,8 @@ body{
     .Inputdisabled{
         @apply text-gray-500  px-4 py-2  focus:ring-0
     }
+
+    .IconTheme{
+        @apply text-redMain text-xl cursor-pointer;
+    }
 }

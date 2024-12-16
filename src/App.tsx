@@ -5,9 +5,10 @@ import MainLayout from './layouts/MainLayout.tsx';
 import Recuperar from './pages/Recuprar.tsx';
 import { AuthProvider } from './context/AuthProvider.tsx';
 import { ProtectedRoute } from './utils/ProtectedRoute.tsx';
-import Administrador from './pages/Admin/Administrador.tsx';
+import Admin from './pages/Admin/Index.tsx';
 import GestionEdicion from './pages/Admin/GestionEdicion.tsx';
 import UsuariosInternos from './pages/Admin/UsuariosInternos.tsx';
+import SeltiProceso from './pages/SeltiProceso';
 
 function App() {
   return (
@@ -20,7 +21,7 @@ function App() {
             <Route
               path="/admin/"
               element={
-                <ProtectedRoute element={<Administrador />} roles={['ADMINISTRADOR']} />
+                <ProtectedRoute element={<Admin />} roles={['ADMINISTRADOR']} />
               }
             >
               <Route
@@ -42,6 +43,19 @@ function App() {
                 }
               />
             </Route>
+            <Route
+              path="/seltiProceso/"
+              element={
+                <ProtectedRoute
+                  element={<SeltiProceso />}
+                  roles={[
+                    'EQUIPO-TECNICO',
+                    'SECRETARIA-TECNICA',
+                    'AUDITOR-EXTERNO',
+                  ]}
+                />
+              }
+            ></Route>
           </Routes>
         </MainLayout>
       </AuthProvider>

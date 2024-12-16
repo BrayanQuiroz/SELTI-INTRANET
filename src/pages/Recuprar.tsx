@@ -37,8 +37,12 @@ const Recuperar = () => {
       >
         <div className="flexCenter w-[400px] border-b-4 border-red-600 mb-5">
           <img className="w-[90px] mt-4 self-center" src={logoSelti} alt="" />
-          <p className="text-xl pt-2 text-gray-600 font-bold">Sistema de Sello</p>
-          <p className="text-xl pb-4 text-redMain font-bold">LIBRE DE TRABAJO INFANTIL</p>
+          <p className="text-xl pt-2 text-gray-600 font-bold">
+            Sistema de Sello
+          </p>
+          <p className="text-xl pb-4 text-redMain font-bold">
+            LIBRE DE TRABAJO INFANTIL
+          </p>
         </div>
         <Input
           label="USUARIO"

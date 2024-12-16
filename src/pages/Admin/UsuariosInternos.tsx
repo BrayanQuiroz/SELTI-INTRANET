@@ -174,7 +174,8 @@ const UsuariosInternos = () => {
   };
 
   const handlCreateUser = async () => {
-    const { rol, apellidoPaterno, correo, tipodocumento, codusu, numdoc } = formData;
+    const { rol, apellidoPaterno, correo, tipodocumento, codusu, numdoc } =
+      formData;
 
     let rolUsers: string = '';
     let CreateBody: {};
@@ -236,7 +237,7 @@ const UsuariosInternos = () => {
         numdoc: '',
         razonSocial: '',
         apellidoPaterno: '',
-        apellidos:'',
+        apellidos: '',
         numeroRuc: '',
       });
 
@@ -257,22 +258,6 @@ const UsuariosInternos = () => {
       // });
       toast.error(error.response.data.message);
     }
-
-    // if (rol === 4) {
-    //   rolUsers = 'AUDITOR-EXTERNO';
-    //
-    //   // usreg:usuarioAccion,
-    //
-    //   toast.error(`Usuario externo ${rol}`);
-    // } else if (rol !== 4) {
-    //   if (rol === 2) {
-    //     rolUsers = 'SECRETARIA-TECNICA';
-    //   } else {
-    //     rolUsers = 'EQUIPO-TECNICO';
-    //   }
-    //
-    //   toast.error(` ${formData.tipodocumento}`);
-    // }
   };
 
   useEffect(() => {
@@ -287,21 +272,70 @@ const UsuariosInternos = () => {
   ];
 
   const data = [
-    { id: 1, name: 'Juan Pérez', role: 'Administrador', email: 'juan@example.com' },
+    {
+      id: 1,
+      name: 'Juan Pérez',
+      role: 'Administrador',
+      email: 'juan@example.com',
+    },
     { id: 2, name: 'María López', role: 'Usuario', email: 'maria@example.com' },
-    { id: 3, name: 'Carlos García', role: 'Editor', email: 'carlos@example.com' },
-    { id: 4, name: 'Juan Pérez', role: 'Administrador', email: 'juan@example.com' },
+    {
+      id: 3,
+      name: 'Carlos García',
+      role: 'Editor',
+      email: 'carlos@example.com',
+    },
+    {
+      id: 4,
+      name: 'Juan Pérez',
+      role: 'Administrador',
+      email: 'juan@example.com',
+    },
     { id: 5, name: 'María López', role: 'Usuario', email: 'maria@example.com' },
-    { id: 6, name: 'Carlos García', role: 'Editor', email: 'carlos@example.com' },
-    { id: 7, name: 'Juan Pérez', role: 'Administrador', email: 'juan@example.com' },
+    {
+      id: 6,
+      name: 'Carlos García',
+      role: 'Editor',
+      email: 'carlos@example.com',
+    },
+    {
+      id: 7,
+      name: 'Juan Pérez',
+      role: 'Administrador',
+      email: 'juan@example.com',
+    },
     { id: 8, name: 'María López', role: 'Usuario', email: 'maria@example.com' },
-    { id: 9, name: 'Carlos García', role: 'Editor', email: 'carlos@example.com' },
-    { id: 10, name: 'Carlos García', role: 'Editor', email: 'carlos@example.com' },
-    { id: 11, name: 'Juan Pérez', role: 'Administrador', email: 'juan@example.com' },
-    { id: 12, name: 'María López', role: 'Usuario', email: 'maria@example.com' },
-    { id: 13, name: 'Carlos García', role: 'Editor', email: 'carlos@example.com' },
+    {
+      id: 9,
+      name: 'Carlos García',
+      role: 'Editor',
+      email: 'carlos@example.com',
+    },
+    {
+      id: 10,
+      name: 'Carlos García',
+      role: 'Editor',
+      email: 'carlos@example.com',
+    },
+    {
+      id: 11,
+      name: 'Juan Pérez',
+      role: 'Administrador',
+      email: 'juan@example.com',
+    },
+    {
+      id: 12,
+      name: 'María López',
+      role: 'Usuario',
+      email: 'maria@example.com',
+    },
+    {
+      id: 13,
+      name: 'Carlos García',
+      role: 'Editor',
+      email: 'carlos@example.com',
+    },
   ];
-
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   return (

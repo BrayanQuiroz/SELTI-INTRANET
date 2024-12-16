@@ -154,8 +154,12 @@ const Login = () => {
       >
         <div className="flexCenter w-[350px]  border-b-4 border-red-600 mb-4">
           <img className="w-[90px] mt-4 self-center" src={logoSelti} alt="" />
-          <p className="text-xl pt-2 text-gray-600 font-bold">Sistema de Sello</p>
-          <p className="text-xl pb-4 text-redMain font-bold">LIBRE DE TRABAJO INFANTIL</p>
+          <p className="text-xl pt-2 text-gray-600 font-bold">
+            Sistema de Sello
+          </p>
+          <p className="text-xl pb-4 text-redMain font-bold">
+            LIBRE DE TRABAJO INFANTIL
+          </p>
         </div>
         <div className="">
           <Input
@@ -181,7 +185,11 @@ const Login = () => {
           >
             INICIAR SESIÓN
           </Buttons>
-          <a href="" className="mb-6 text-sm" onClick={() => navigate('/recuperar')}>
+          <a
+            href=""
+            className="mb-6 text-sm"
+            onClick={() => navigate('/recuperar')}
+          >
             <span className="text-blue-500 no-underline hover:underline hover:text-blue-700">
               ¿HAS OLVIDADO TU CONTRASEÑA?
               <span className="text-2xl">&#129300;</span>
@@ -189,9 +197,6 @@ const Login = () => {
           </a>
         </div>
       </form>
-
-
-
 
       <Modal
         isOpen={isModalOpen}
@@ -215,13 +220,16 @@ const Login = () => {
           />
           <div className="w-full flex justify-center items-center">
             <p className="w-[400px] text-[15px]">
-              La contraseña debe tener 12 dígitos y al menos una mayúscula, un carácter
-              especial y un número
+              La contraseña debe tener 12 dígitos y al menos una mayúscula, un
+              carácter especial y un número
             </p>
           </div>
           <div className="w-full flex justify-end p-4">
             <Buttons className="text-sm mr-4 text-white">ACTUALIZAR</Buttons>
-            <Buttons className="HoverButton" onClick={() => setIsModalOpen(false)}>
+            <Buttons
+              className="HoverButton"
+              onClick={() => setIsModalOpen(false)}
+            >
               CANCELAR
             </Buttons>
           </div>
