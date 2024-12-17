@@ -6,7 +6,7 @@ const Index = () => {
   return (
     <div className="w-full font-medium text-redMain">
       <NavBarUsers rol="ADMINISTRADOR" />
-      <main className="max-w-[1200px] mx-auto ">
+      <main className="max-w-[1300px] mx-auto ">
         {location.pathname === '/admin/' && (
           <div className="w-[600px] pt-[6rem] mx-auto text-center">
             <p className="text-5xl pt-2 text-gray-600 font-bold">Bienvenido</p>

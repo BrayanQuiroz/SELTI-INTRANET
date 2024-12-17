@@ -6,6 +6,22 @@ export const Postualcion = () =>{
   )
 }
 
+export const EvaluacionReque = () =>{
+  return(
+    <div className="text-white bg-[#008CBA] py-1.5 px-2.5 rounded-[25px] font-bold w-[162px]">
+      Evaluación en proceso
+    </div>
+  )
+}
+
+export const AsistXProgramar = () =>{
+  return(
+    <div className="text-white bg-[#FF7043] py-1.5 px-2.5 rounded-[25px] font-bold w-[109px]">
+      Programar reunión
+    </div>
+  )
+}
+
 export const AsistProgramada = () =>{
   return(
     <div className="text-white bg-[#FF7043] py-1.5 px-2.5 rounded-[25px] font-bold w-[109px]">

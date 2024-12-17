@@ -19,7 +19,7 @@ const api = axios.create({
 
         const response = await api.get('/apiListar/PostulacionAll/')
         setListPost(response?.data?.data)
-        console.log(response.data.data)
+        console.log(response?.data?.data)
       } catch (e) {
         console.error('Error al obtener la lista de postulacion:', e)
       }
@@ -43,7 +43,7 @@ const api = axios.create({
   return (
     <div className="w-full font-medium text-redMain">
       <NavBarUsers rol="SECRETARIA-TECNICA" />
-      <main className="max-w-[1200px] mx-auto ">
+      <main className="max-w-[1300px] mx-auto ">
         <div className="pt-[3rem]">
           <div className="bg-white p-[1rem] mb-[3rem]">
             <div className="flex-between border-b-4 border-red-600 pb-2 mb-8">

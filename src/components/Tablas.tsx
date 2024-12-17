@@ -1,14 +1,18 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { FaUserAlt } from "react-icons/fa";
 import { FaSearchPlus } from "react-icons/fa";
 import {
   AsistenciaCumplido,
   AsistNoCumpl,
   AsistProgramada,
-  AsistReprogra, Auditor, EnviarOtor, InfOtorgado, InfRechazado,
+  AsistReprogra, AsistXProgramar, Auditor, EnviarOtor, InfOtorgado, InfRechazado,
   Postualcion,
   ReviLinea,
 } from '../utils/States.tsx';
+import Modal from './Modal.tsx';
+import Selects from './Selects.tsx';
+import axios from 'axios';
+import config from '../utils/urls.ts';
 
 interface Column<T> {
   header: string;
@@ -22,6 +26,9 @@ interface TableProps<T> {
 
 function Table<T>({ columns, data }: TableProps<T>) {
 
+  const api = axios.create({
+    baseURL: config.apiUrl,
+  });
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -42,17 +49,43 @@ function Table<T>({ columns, data }: TableProps<T>) {
 
   const isTrueCod = data.some((item) => 'codpostul' in item);
 
-  console.log(`Es true: ${isTrueCod}`)
 
   const formattedData = data.map((item)=>{
-    console.log('Contenido completo de data:', data);
 
+    const renderIconEstado = ()=>{
 
-    const renderIconEstado = (codetapa:number)=>{
+      const { codetapa, flaglinea,flagestandar, ruc} = item;
 
       switch (codetapa){
+        case 1:
+          return <Postualcion />;
+        case 2:
+          if(flagestandar === 1){
+            return <AsistProgramada />;
+          }else if(flagestandar == 2){
+            return <AsistReprogra />
+          }else if(flagestandar == 3){
+            return <AsistNoCumpl />
+          }else if(flagestandar == 5){
+            return <AsistenciaCumplido />
+          }else{
+            return <AsistXProgramar />
+          }
         case 3:
+          if (flaglinea == 2) {
+            return  <ReviLinea />
+          }
+          break;
+        case 4:
+          return <Auditor />;
+        case 5:
+          return <EnviarOtor />;
+        case 6:
+          return <InfOtorgado />;
+        case 7:
           return <InfRechazado />;
+        case 8:
+          return <EvaluacionReque />;
         default:
           return null;
       }
@@ -60,14 +93,24 @@ function Table<T>({ columns, data }: TableProps<T>) {
 
     const renderEtapa = (codetapa:number)=>{
 
-      console.log(`entre a renderEtapa ${codetapa}`)
-
-      switch (codetapa){
-        case 3:
-          console.log('íngrese')
+      switch (codetapa) {
+        case 1:
           return "Postulación";
+        case 2:
+          return "Asistencia Técnica";
+        case 3:
+          return "Evaluación del cumplimiento de linea. y estánd. ";
+        case 4:
+          return "Verificación de no uso de mano de obra  infantil.";
+        case 5:
+          return "Enviar Otorgamiento";
+        case 6:
+          return "Otorgamiento del Reconocimiento SELTI";
+        case 7:
+          return "Rechazado";
+        case 8:
+          return "Evaluación de requisitos";
         default:
-          console.log('no lo hice')
           return null;
       }
     }
@@ -80,7 +123,6 @@ console.log(item.nombre)
       flaglinea: renderIconEstado(item.codetapa),
       acciones: item.flagestado,
     }
-    console.log(result);
     return result;
   })
 
@@ -95,7 +137,22 @@ console.log(item.nombre)
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
-  // esto se agrego final
+
+  const [selectOptions, setSelectedOptions] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+
+        const response = await api.get("/apiListar/EquipoTecnico/");
+        setSelectedOptions(response.data);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error al obtener los roles:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="border border-gray-200">
@@ -178,7 +235,21 @@ console.log(item.nombre)
           Siguiente
         </button>
       </div>
-      {/* esto se agrego final */}
+      <Modal
+        textModal='Asignación de postulación'
+        isOpen={true}>
+        <div className="mx-4 mt-4 flex flex-wrap  pb-[1rem]">
+          <div className='w-full'>
+            <p>Se asigna la postulación del RUC:</p>
+          </div>
+          <Selects
+            options={selectOptions}
+            labelP="Tipo de usuarios"
+          />
+
+        </div>
+
+      </Modal>
     </div>
   );
 }

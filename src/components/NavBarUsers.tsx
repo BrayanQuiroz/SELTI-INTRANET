@@ -17,7 +17,7 @@ const NavBarUsers = ({ rol }: TypeRol) => {
 
   return (
     <div className="w-full bg-white">
-      <div className=" flex-between max-w-[1200px] mx-auto pt-3 pb-3">
+      <div className=" flex-between max-w-[1300px] mx-auto pt-3 pb-3">
         <div className="flex items-center  ">
           <figure className="w-[50px] mr-[1rem]">
             <img src={LogoSelti} alt="" />
