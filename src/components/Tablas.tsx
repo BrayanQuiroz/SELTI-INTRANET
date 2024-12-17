@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import { FaUserAlt } from "react-icons/fa";
 import { FaSearchPlus } from "react-icons/fa";
-import { Postualcion } from '../utils/States.tsx';
+import {
+  AsistenciaCumplido,
+  AsistNoCumpl,
+  AsistProgramada,
+  AsistReprogra, Auditor, EnviarOtor, InfOtorgado, InfRechazado,
+  Postualcion,
+  ReviLinea,
+} from '../utils/States.tsx';
 
 interface Column<T> {
   header: string;
@@ -14,9 +21,9 @@ interface TableProps<T> {
 }
 
 function Table<T>({ columns, data }: TableProps<T>) {
-  // esto se agrego inicia
-  const [currentPage, setCurrentPage] = useState(1); // Estado para la página actual
-  const itemsPerPage = 10; // Número máximo de elementos por página
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 10;
 
   const totalItems = data.length;
   const totalPages = Math.ceil(totalItems / itemsPerPage);
@@ -45,14 +52,13 @@ function Table<T>({ columns, data }: TableProps<T>) {
 
       switch (codetapa){
         case 3:
-          return <Postualcion />;
+          return <InfRechazado />;
         default:
           return null;
       }
     }
 
     const renderEtapa = (codetapa:number)=>{
-      // const {codetapa} = item;
 
       console.log(`entre a renderEtapa ${codetapa}`)
 
