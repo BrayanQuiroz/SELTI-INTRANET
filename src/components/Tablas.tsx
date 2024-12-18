@@ -5,7 +5,7 @@ import {
   AsistenciaCumplido,
   AsistNoCumpl,
   AsistProgramada,
-  AsistReprogra, AsistXProgramar, Auditor, EnviarOtor, InfOtorgado, InfRechazado,
+  AsistReprogra, AsistXProgramar, Auditor, EnviarOtor, EvaluacionReque, InfOtorgado, InfRechazado,
   Postualcion,
   ReviLinea,
 } from '../utils/States.tsx';
@@ -19,6 +19,20 @@ interface Column<T> {
   key: keyof T;
 }
 
+type TransFormedData = {
+  label: string;
+  value: string;
+};
+
+type apiDataState ={
+  codusu?: number;
+  correo?: string;
+  flagestado?: number;
+  nombre?: string;
+  rol?: string;
+  usuario?: string
+}
+
 interface TableProps<T> {
   columns: Column<T>[];
   data: T[];
@@ -29,6 +43,9 @@ function Table<T>({ columns, data }: TableProps<T>) {
   const api = axios.create({
     baseURL: config.apiUrl,
   });
+
+  const [usersList, setUsersList] = useState<apiDataState[]>([]);
+
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
 
@@ -91,7 +108,9 @@ function Table<T>({ columns, data }: TableProps<T>) {
       }
     }
 
-    const renderEtapa = (codetapa:number)=>{
+    const renderEtapa = ()=>{
+
+      const { codetapa} = item;
 
       switch (codetapa) {
         case 1:
@@ -145,7 +164,7 @@ console.log(item.nombre)
       try {
 
         const response = await api.get("/apiListar/EquipoTecnico/");
-        setSelectedOptions(response.data);
+        setUsersList(response.data);
         console.log(response.data);
       } catch (error) {
         console.error("Error al obtener los roles:", error);
@@ -153,6 +172,10 @@ console.log(item.nombre)
     };
     fetchData();
   }, []);
+  //
+  // const transformData: TransFormedData[] = usersList.map((item)=>{
+  //   label: item.
+  // })
 
   return (
     <div className="border border-gray-200">
