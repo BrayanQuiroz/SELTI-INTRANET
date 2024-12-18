@@ -162,7 +162,6 @@ console.log(item.nombre)
   useEffect(() => {
     const fetchData = async () => {
       try {
-
         const response = await api.get("/apiListar/EquipoTecnico/");
         setUsersList(response.data);
         console.log(response.data);
@@ -172,10 +171,11 @@ console.log(item.nombre)
     };
     fetchData();
   }, []);
-  //
-  // const transformData: TransFormedData[] = usersList.map((item)=>{
-  //   label: item.
-  // })
+
+  const transformData: TransFormedData[] = usersList.map((item)=>({
+    label: item.nombre,
+    value: item.codusu
+  }))
 
   return (
     <div className="border border-gray-200">
@@ -266,7 +266,7 @@ console.log(item.nombre)
             <p>Se asigna la postulación del RUC:</p>
           </div>
           <Selects
-            options={selectOptions}
+            options={transformData}
             labelP="Tipo de usuarios"
           />
 
