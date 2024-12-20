@@ -13,6 +13,7 @@ import Modal from './Modal.tsx';
 import Selects from './Selects.tsx';
 import axios from 'axios';
 import config from '../utils/urls.ts';
+import { toast,Toaster } from 'react-hot-toast';
 
 interface Column<T> {
   header: string;
@@ -156,8 +157,16 @@ console.log(item.nombre)
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
+  const handleAsignar = ()=>{
 
-  const [selectOptions, setSelectedOptions] = useState([]);
+  }
+
+  const handleChange =(value: number | string)=>{
+    toast.error(` el valor gaa${value}`);
+  }
+
+
+  const [asginar, setAsignar] = useState();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -173,7 +182,7 @@ console.log(item.nombre)
   }, []);
 
   const transformData: TransFormedData[] = usersList.map((item)=>({
-    label: item.nombre,
+    label: `${item.nombre} - ${item.rol}`,
     value: item.codusu
   }))
 
@@ -260,18 +269,25 @@ console.log(item.nombre)
       </div>
       <Modal
         textModal='Asignación de postulación'
+        ClassName="w-[515px]"
+        onAccept={handleAsignar}
         isOpen={true}>
         <div className="mx-4 mt-4 flex flex-wrap  pb-[1rem]">
           <div className='w-full'>
             <p>Se asigna la postulación del RUC:</p>
           </div>
           <Selects
+            placeholder='Selecione usuario'
             options={transformData}
-            labelP="Tipo de usuarios"
+            labelP="Asignar:"
+            onChange={(value : string| number)=>{
+                let asignado = value;
+
+            }}
           />
 
         </div>
-
+        <Toaster />
       </Modal>
     </div>
   );
