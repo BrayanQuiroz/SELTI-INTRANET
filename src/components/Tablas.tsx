@@ -22,7 +22,7 @@ interface Column<T> {
 
 type TransFormedData = {
   label: string;
-  value: string;
+  value: string| number;
 };
 
 type apiDataState ={
@@ -157,16 +157,50 @@ console.log(item.nombre)
   for (let i = 1; i <= totalPages; i++) {
     pageNumbers.push(i);
   }
-  const handleAsignar = ()=>{
 
-  }
 
   const handleChange =(value: number | string)=>{
     toast.error(` el valor gaa${value}`);
   }
 
 
-  const [asginar, setAsignar] = useState();
+  const [modal, setModal] = useState(false);
+
+  const [modalData, setModalData] = useState({
+    codpostul:'',
+    codusu: 0,
+    ruc: '',
+  });
+
+  const handleAsignar = async ()=>{
+    let text:string = modalData.codpostul;
+    let codpostul = text.split("-")[1];
+
+    try {
+      const response = await api.put("/Update/Tecnico/",{
+        codpostul: codpostul,
+        codusu: modalData.codusu,
+      })
+
+      if (response.status === 200){
+        toast.success('Postualación asiganada', {
+          style: { background: '#333', color: '#fff' },
+        })
+        setModal(false);
+      }
+    }catch (e){
+      console.log(e);
+    }
+  }
+
+  const handleAsigPost = (id:string, ruc:string, codusu:number)=>{
+    setModal(true)
+    setModalData({
+      codpostul: id,
+      ruc: ruc,
+      codusu: codusu
+    })
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -215,7 +249,12 @@ console.log(item.nombre)
                 >
                   {col.key === 'acciones'?
                     <div className="flex">
-                      <FaUserAlt className="IconTheme mr-4" />
+                      <button
+                        onClick={()=>handleAsigPost(row.codpostul, row.ruc, row.codusu)}
+                        className="IconTheme mr-4">
+                        <FaUserAlt  />
+                      </button>
+
                       <FaSearchPlus className="IconTheme" />
                     </div>
                   :row[col.key]}
@@ -254,7 +293,7 @@ console.log(item.nombre)
             </button>
           ))}
         </div>
-
+        <Toaster />
         <button
           onClick={handleNext}
           disabled={currentPage === totalPages}
@@ -271,23 +310,26 @@ console.log(item.nombre)
         textModal='Asignación de postulación'
         ClassName="w-[515px]"
         onAccept={handleAsignar}
-        isOpen={true}>
+        onCancel={() => setModal(false)}
+        isOpen={modal}>
         <div className="mx-4 mt-4 flex flex-wrap  pb-[1rem]">
           <div className='w-full'>
-            <p>Se asigna la postulación del RUC:</p>
+            <p>Se asigna la postulación del RUC: {modalData.ruc}</p>
           </div>
           <Selects
             placeholder='Selecione usuario'
             options={transformData}
             labelP="Asignar:"
             onChange={(value : string| number)=>{
-                let asignado = value;
-
+                setModalData({
+                  ...modalData,
+                  codusu: value,
+                })
             }}
           />
 
         </div>
-        <Toaster />
+
       </Modal>
     </div>
   );
