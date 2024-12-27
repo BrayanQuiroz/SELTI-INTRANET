@@ -13,7 +13,6 @@ const NavBarUsers = ({ rol }: TypeRol) => {
 
   const navigate = useNavigate();
 
-  console.log(rol)
 
   return (
     <div className="w-full bg-white">

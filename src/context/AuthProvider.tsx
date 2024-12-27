@@ -1,9 +1,7 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { AuthContext, AutData, defaultAuthData } from './AuthContext.tsx';
 
-export const AuthProvider: React.FC<{ children: ReactNode }> = ({
-  children,
-}) => {
+export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [authData, setAuthData] = useState<AutData>(defaultAuthData);
 
   const [isReady, setIsReady] = useState(false);
@@ -18,7 +16,6 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
 
   useEffect(() => {
     const storeAuthData = localStorage.getItem('authData');
-    console.log(storeAuthData);
     if (storeAuthData) {
       setAuthData(JSON.parse(storeAuthData));
     }
@@ -50,9 +47,7 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({
   };
 
   return (
-    <AuthContext.Provider
-      value={{ authData, AuthDataUpdate, handleLogout, isReady }}
-    >
+    <AuthContext.Provider value={{ authData, AuthDataUpdate, handleLogout, isReady }}>
       {children}
     </AuthContext.Provider>
   );

@@ -6,27 +6,24 @@ import config from '../../utils/urls.ts';
 import { Postualcion } from '../../utils/States.tsx';
 
 const Index = () => {
-
-const api = axios.create({
-  baseURL: config.apiUrl
-})
+  const api = axios.create({
+    baseURL: config.apiUrl,
+  });
 
   const [ListPost, setListPost] = useState([]);
+  const [isRefresh, setIsRefresh] = useState(false);
 
   useEffect(() => {
     const Listar = async () => {
       try {
-
-        const response = await api.get('/apiListar/PostulacionAll/')
-        setListPost(response?.data?.data)
-        console.log(response?.data?.data)
+        const response = await api.get('/apiListar/PostulacionAll/');
+        setListPost(response?.data?.data);
       } catch (e) {
-        console.error('Error al obtener la lista de postulacion:', e)
+        console.error('Error al obtener la lista de postulacion:', e);
       }
-
-    }
+    };
     Listar();
-  },[])
+  }, [isRefresh]);
 
   const columns = [
     { header: 'ID', key: 'codpostul' },
@@ -37,7 +34,7 @@ const api = axios.create({
     { header: 'Acciones', key: 'acciones' },
   ];
   useEffect(() => {
-    document.title = "Proceso Selti";
+    document.title = 'Proceso Selti';
   }, []);
 
   return (
@@ -50,7 +47,7 @@ const api = axios.create({
               <h2 className="text-3xl">Bandeja de pendientes</h2>
             </div>
             <div>
-              <Tablas columns={columns} data={ListPost} />
+              <Tablas onRefresh={setIsRefresh} columns={columns} data={ListPost} />
             </div>
           </div>
         </div>

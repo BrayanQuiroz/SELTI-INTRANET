@@ -12,9 +12,7 @@ const Input = React.forwardRef<HTMLInputElement, Props>(
       <div className=" flex flex-col">
         <div className="flex flex-col">
           {label && (
-            <label className="text-x font-bold self-start text-redMain">
-              {label}
-            </label>
+            <label className="text-x font-bold self-start text-redMain">{label}</label>
           )}
           <input
             className={clsx(

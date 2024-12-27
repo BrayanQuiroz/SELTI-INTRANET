@@ -9,6 +9,7 @@ import Admin from './pages/Admin/Index.tsx';
 import GestionEdicion from './pages/Admin/GestionEdicion.tsx';
 import UsuariosInternos from './pages/Admin/UsuariosInternos.tsx';
 import SeltiProceso from './pages/SeltiProceso';
+import ViewPostulante from './pages/SeltiProceso/ViewPostulante.tsx';
 
 function App() {
   return (
@@ -20,9 +21,7 @@ function App() {
             <Route path="/recuperar" element={<Recuperar />} />
             <Route
               path="/admin/"
-              element={
-                <ProtectedRoute element={<Admin />} roles={['ADMINISTRADOR']} />
-              }
+              element={<ProtectedRoute element={<Admin />} roles={['ADMINISTRADOR']} />}
             >
               <Route
                 path="/admin/gestionEdicion"
@@ -48,11 +47,16 @@ function App() {
               element={
                 <ProtectedRoute
                   element={<SeltiProceso />}
-                  roles={[
-                    'EQUIPO-TECNICO',
-                    'SECRETARIA-TECNICA',
-                    'AUDITOR-EXTERNO',
-                  ]}
+                  roles={['EQUIPO-TECNICO', 'SECRETARIA-TECNICA', 'AUDITOR-EXTERNO']}
+                />
+              }
+            ></Route>
+            <Route
+              path="/seltiProceso/:hashCodpostul"
+              element={
+                <ProtectedRoute
+                  element={<ViewPostulante />}
+                  roles={['EQUIPO-TECNICO', 'SECRETARIA-TECNICA', 'AUDITOR-EXTERNO']}
                 />
               }
             ></Route>

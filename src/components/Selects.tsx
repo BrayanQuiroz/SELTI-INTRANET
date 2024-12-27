@@ -33,9 +33,7 @@ const Selects: React.FC<SelectProps> = ({
     const selectedValue = e.target.value;
     const numericValue = Number(selectedValue);
     onChange?.(
-      !isNaN(numericValue) && selectedValue.trim() !== ''
-        ? numericValue
-        : selectedValue,
+      !isNaN(numericValue) && selectedValue.trim() !== '' ? numericValue : selectedValue,
     );
   };
 
