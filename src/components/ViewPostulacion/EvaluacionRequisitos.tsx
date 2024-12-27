@@ -66,19 +66,36 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
     setCount(0)
   }
 
+  const EvaluacionAprobada = async () => {
+    try {
+      await api.put('/Update/EvaluacionEstado/', {
+        ruc: ruc,
+        evaluatres: 1,
+        flagevalua: 1,
+        razonSocial: razonSocial,
+        RepresentanteLegal: represent,
+        correo: correo
+      })
+      setUpdateState(true)
+
+    } catch (error) {
+      console.error(error.response.data.error)
+    }
+  }
+
   const handleAprobar = ()=>{
-    if (evaluacion?.evaluatres === 3){
+    if (count === 1){
       Swal.fire({
         title: "Confirmación",
-        html: "¿Estás seguro de <b>APROBAR</b> la preevalicacion de requisitos?",
+        html: "¿Estás seguro de <b>APROBAR</b> la preevalicación de requisitos?",
         icon: "warning",
         showCancelButton: true,
         confirmButtonText: "Aceptar",
         cancelButtonText: "Atrás",
       }).then((result) => {
         if (result.isConfirmed) {
-          // handleSendPost();
-          // handleEvaluacion();
+          EvaluacionAprobada()
+          toast.success('Preevalicación de requisitos fue aprobada')
         }
       });
     }else{
@@ -86,7 +103,6 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
         style: { background: '#333', color: '#fff' },
       });
     }
-
   }
 
   return (
@@ -129,20 +145,23 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
                   />
                 )}
               </article>
-              <article className='mt-4'>
-                <Buttons
-                  className="text-white bg-redMain py-1 mr-[1rem]
+              {evaluacion?.evaluatres === 0 && (
+                <article className='mt-4'>
+                  <Buttons
+                    className="text-white bg-redMain py-1 mr-[1rem]
                   HoverButtonRed w-[120px]"
-                  onClick={handleAprobar}
-                >
-                  Aprobar
-                </Buttons>
-                <Buttons
-                  // onClick={handleDesaprobar}
-                  className=" bg-white HoverButton py-1">
-                  Desaprobar
-                </Buttons>
-              </article>
+                    onClick={handleAprobar}
+                  >
+                    Aprobar
+                  </Buttons>
+                  <Buttons
+                    // onClick={handleDesaprobar}
+                    className=" bg-white HoverButton py-1">
+                    Desaprobar
+                  </Buttons>
+                </article>
+              )}
+
             </section>
           </AccordionItemPanel>
         </AccordionItem>
