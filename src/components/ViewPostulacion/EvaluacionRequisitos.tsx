@@ -13,16 +13,17 @@ import axios from 'axios';
 import config from '../../utils/urls.ts';
 import Swal from 'sweetalert2';
 import Buttons from '../Buttons.tsx';
+import EvaluacionRequiCompl from './EvaluacionRequiCompl.tsx';
+import { useEvaluacion } from '../../utils/functions/useEvaluacion.ts';
 
 
 type Props = {
-  ruc: string;
+  ruc: number;
   razonSocial: string;
   represent: string;
   etapaEdicion: number;
   correo: string;
 }
-
 
 const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:Props) => {
 
@@ -30,28 +31,26 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
     baseURL: config.apiUrl
   })
 
+  console.log(`el valor del ruc ${ruc}`)
 
   const [updateState, setUpdateState] = useState(false)
 
-  const [evaluacion, setEvaluacion] = useState({})
+  const evaluacion = useEvaluacion(ruc, updateState);
 
-  useEffect(() => {
-    if (ruc) {
-      const ListarEvaliacion = async () => {
-        try {
-          const response = await api.get(`/apiListar/Evaluacions/${ruc}/`)
-          setEvaluacion(response.data.data)
-        } catch (error) {
-          console.error(error.response?.data?.error)
-        }
-      }
-      ListarEvaliacion()
-    }
-  }, [ruc, updateState])
+  console.log(evaluacion)
 
   const [count, setCount] = useState(0);
   const [isTrueThree, setIsTrueThree] = useState(false);
   const [isNeutro, setIsNeutro] = useState(true);
+
+  useEffect(() => {
+    if (evaluacion.evaluatres === 1) {
+      setIsTrueThree(true);
+      console.log('entre')
+    } else {
+      setIsNeutro(false);
+    }
+  }, [evaluacion]);
 
 
   const handlAprobarThree = ()=>{
@@ -134,12 +133,15 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
               <article className='text-gray-500 mt-2 flex  items-center w-full'>
                 <p className='pr-[3rem]'>Realiza la actividad económica establecida para la presente edición:</p>
                 {(evaluacion?.evaluatres === 1 || evaluacion?.evaluatres === 0) && (
-                  <Evaluacion isTrue={isTrueThree}
-                              onClick={handlAprobarThree}
+                  <Evaluacion
+                    disabled={isTrueThree}
+                    isTrue={isTrueThree}
+                    onClick={handlAprobarThree}
                   />
                 )}
                 {(evaluacion?.evaluatres === 2 || evaluacion?.evaluatres === 0) && (
                   <EvaluacionIsNot
+                    disabled={isTrueThree}
                     isNeutro={isNeutro}
                     onClick={handleIsNot}
                   />
@@ -161,8 +163,10 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
                   </Buttons>
                 </article>
               )}
-
             </section>
+            <EvaluacionRequiCompl
+              ruc={ruc}
+            />
           </AccordionItemPanel>
         </AccordionItem>
       </Accordion>

@@ -8,26 +8,28 @@ type PropsChecks ={
   isTrue?: boolean;
   evaluacionUno?: boolean;
   isNeutro?: boolean;
+  disabled: boolean;
 }
 
-export const Evaluacion = ({isTrue,onClick, evaluacionUno}:PropsChecks) =>{
+export const Evaluacion = ({isTrue,onClick, disabled}:PropsChecks) =>{
   return (
-    <div
+    <button
       className='cursor-pointer'
       onClick={onClick}
+      disabled={disabled}
     >
       <FaRegCheckCircle className={`
         ${isTrue ? 'text-[#5CB85C]' : 'text-[#CCC]'}
         text-4xl
-      `} />
-    </div>
+      `}  />
+    </button>
 
   )
 }
 
 export const EvaluacionIsNot = ({isTrue,onClick, isNeutro}:PropsChecks) =>{
   return (
-    <div
+    <button
       className='cursor-pointer'
       onClick={onClick}
     >
@@ -35,7 +37,7 @@ export const EvaluacionIsNot = ({isTrue,onClick, isNeutro}:PropsChecks) =>{
         ${isTrue || isNeutro ? 'text-[#CCC]' : 'text-[#FF0000]'}
         text-[44px]
       `} />
-    </div>
+    </button>
 
   )
 }
