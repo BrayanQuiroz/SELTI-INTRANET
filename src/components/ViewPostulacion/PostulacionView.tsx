@@ -1,10 +1,11 @@
 import {
-  Accordion, AccordionItem,
+  Accordion,
+  AccordionItem,
   AccordionItemButton,
   AccordionItemHeading,
   AccordionItemPanel,
 } from 'react-accessible-accordion';
-import { AiFillCaretRight } from "react-icons/ai";
+import { AiFillCaretRight } from 'react-icons/ai';
 import Buttons from '../Buttons.tsx';
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
@@ -16,17 +17,17 @@ import { handlePostulacion } from '../../utils/functions/AprobarPostulacion.ts';
 import { AuthContext, defaultAuthData } from '../../context/AuthContext.tsx';
 
 type PostProps = {
-  codpostul: number
-}
+  codpostul: number;
+};
 
 const PostulacionView = ({ codpostul }: PostProps) => {
   const api = axios.create({
     baseURL: config.apiUrl,
   });
 
-  const {authData} = useContext(AuthContext);
+  const { authData } = useContext(AuthContext);
 
-  const nameUser = authData?.nameuser
+  const nameUser = authData?.nameuser;
 
   const [isUpdate, setIsUpdate] = useState(false);
 
@@ -38,7 +39,7 @@ const PostulacionView = ({ codpostul }: PostProps) => {
     { header: 'Cargo', key: 'cargo' },
     { header: 'Email', key: 'email' },
     { header: 'Celular', key: 'celular' },
-  ]
+  ];
 
   const columnsPF = [
     { header: 'Nombre(s).', key: 'nombre' },
@@ -48,7 +49,7 @@ const PostulacionView = ({ codpostul }: PostProps) => {
     { header: 'Cargo', key: 'cargo' },
     { header: 'Email', key: 'email' },
     { header: 'Celular', key: 'celular' },
-  ]
+  ];
 
   const columnsUP = [
     { header: 'Departamento', key: 'DEPARTAMENTO' },
@@ -57,14 +58,13 @@ const PostulacionView = ({ codpostul }: PostProps) => {
     { header: 'Dirección exacta', key: 'DIRECCION' },
     { header: 'Tipo de Cultivo', key: 'PRODUCTO' },
     { header: 'Nº de Hectáreas', key: 'HECTAREAS' },
-  ]
+  ];
 
   const [ListPostulacion, SetListPostulacion] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [represent, setRepresent] = useState([]);
   const [puntosFocales, setPuntosFocales] = useState([]);
   const [unidadProductiva, setUnidadProductiva] = useState([]);
-
 
   useEffect(() => {
     const Listar = async () => {
@@ -78,99 +78,101 @@ const PostulacionView = ({ codpostul }: PostProps) => {
     Listar();
   }, [isUpdate]);
 
-
-
   const handleSendPost = async () => {
-    const { razonsocial, numdoc, ruc, correoRegis,
-      nompernatural,apellidoPart, apellidoMart} =  ListPostulacion.postulacion;
+    const {
+      razonsocial,
+      numdoc,
+      ruc,
+      correoRegis,
+      nompernatural,
+      apellidoPart,
+      apellidoMart,
+    } = ListPostulacion.postulacion;
 
-    await handlePostulacion(numdoc, nompernatural, apellidoPart, apellidoMart, razonsocial, correoRegis, ruc, 1)
-    toast.success("Postulación aprobada");
-
-  };
-
-  const handleRechazar = async () => {
-    const { ruc, correoRegis,razonsocial } = ListPostulacion.postulacion;
-
-    handlePostulacion(null,
-      null,
-      null,
-      null,
+    await handlePostulacion(
+      numdoc,
+      nompernatural,
+      apellidoPart,
+      apellidoMart,
       razonsocial,
       correoRegis,
       ruc,
-      2
-    )
-    toast.success("Postulación rechazada");
+      1,
+    );
+    toast.success('Postulación aprobada');
   };
 
-  const handleEvaluacion = async () =>{
-    const {ruc} =  ListPostulacion?.postulacion;
+  const handleRechazar = async () => {
+    const { ruc, correoRegis, razonsocial } = ListPostulacion.postulacion;
+
+    handlePostulacion(null, null, null, null, razonsocial, correoRegis, ruc, 2);
+    toast.success('Postulación rechazada');
+  };
+
+  const handleEvaluacion = async () => {
+    const { ruc } = ListPostulacion?.postulacion;
 
     try {
-      await api.post('/Create/EvaluacionEstado/',{
+      await api.post('/Create/EvaluacionEstado/', {
         ruc: ruc,
         evaluauno: 1,
-        evaluados:1,
+        evaluados: 1,
         evaluatres: 0,
         evaluacuatro: 0,
         evaluacinco: 0,
         evaluaseis: 0,
-        flagevalua:0,
-        usureg:nameUser,
-        total: 6
-      })
+        flagevalua: 0,
+        usureg: nameUser,
+        total: 6,
+      });
       setIsUpdate(true);
-    }catch (error){
-      toast.error(error.response.data.error)
+    } catch (error) {
+      toast.error(error.response.data.error);
     }
-  }
+  };
 
-  const handleAprobar = ()=>{
+  const handleAprobar = () => {
     Swal.fire({
-      title: "Confirmación",
-      html: "¿Estás seguro de <b>APROBAR</b> esta postulación?",
-      icon: "warning",
+      title: 'Confirmación',
+      html: '¿Estás seguro de <b>APROBAR</b> esta postulación?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Atrás",
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Atrás',
     }).then((result) => {
       if (result.isConfirmed) {
         handleSendPost();
         handleEvaluacion();
       }
     });
-  }
+  };
 
-  const handleDesaprobar = ()=>{
+  const handleDesaprobar = () => {
     Swal.fire({
-      title: "Confirmación",
-      html: "¿Estás seguro de <b>DESAPROBAR</b> esta postulación?",
-      icon: "warning",
+      title: 'Confirmación',
+      html: '¿Estás seguro de <b>DESAPROBAR</b> esta postulación?',
+      icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: "Aceptar",
-      cancelButtonText: "Atrás",
+      confirmButtonText: 'Aceptar',
+      cancelButtonText: 'Atrás',
     }).then((result) => {
       if (result.isConfirmed) {
-        handleRechazar
+        handleRechazar;
       }
     });
-  }
-
+  };
 
   useEffect(() => {
     if (ListPostulacion?.representantes) {
       setRepresent(ListPostulacion.representantes);
       setPuntosFocales(ListPostulacion.puntos_focales);
-      setUnidadProductiva(ListPostulacion.unidades_productivas)
-      setIsLoading(true)
+      setUnidadProductiva(ListPostulacion.unidades_productivas);
+      setIsLoading(true);
     }
   }, [ListPostulacion]);
 
-
-
   return (
-    <div className=' p-[1rem] bg-white  mb-[1.5rem]'>
+    <div className=" p-[1rem] bg-white  mb-[1.5rem]">
       <Toaster />
       <Accordion allowZeroExpanded>
         <AccordionItem>
@@ -302,7 +304,9 @@ const PostulacionView = ({ codpostul }: PostProps) => {
               </article>
               <article className="flex flex-wrap">
                 <header className="w-full mt-8 mb-4">
-                  <span className="text-xl mr-4 font-bold">Unidad(es) Productiva(s): </span>
+                  <span className="text-xl mr-4 font-bold">
+                    Unidad(es) Productiva(s):{' '}
+                  </span>
                 </header>
                 {isLoading && (
                   <TablasSimples columns={columnsUP} data={unidadProductiva || []} />
@@ -310,7 +314,7 @@ const PostulacionView = ({ codpostul }: PostProps) => {
               </article>
               {ListPostulacion?.postulacion?.codetapa === 1 && (
                 <>
-                  <article className='mt-4'>
+                  <article className="mt-4">
                     <Buttons
                       className="text-white bg-redMain py-1 mr-[1rem]
                   HoverButtonRed w-[120px]"
@@ -320,14 +324,13 @@ const PostulacionView = ({ codpostul }: PostProps) => {
                     </Buttons>
                     <Buttons
                       onClick={handleDesaprobar}
-                      className=" bg-white HoverButton py-1">
+                      className=" bg-white HoverButton py-1"
+                    >
                       Desaprobar
                     </Buttons>
                   </article>
                 </>
-              )
-              }
-
+              )}
             </section>
           </AccordionItemPanel>
         </AccordionItem>

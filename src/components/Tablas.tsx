@@ -20,7 +20,7 @@ import axios from 'axios';
 import config from '../utils/urls.ts';
 import { toast, Toaster } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
-import CryptoJS from 'crypto-js'
+import CryptoJS from 'crypto-js';
 
 interface Column<T> {
   header: string;
@@ -55,8 +55,8 @@ function Table<T>({ columns, data, onRefresh }: TableProps<T>) {
   const [usersList, setUsersList] = useState<apiDataState[]>([]);
   const navigate = useNavigate();
 
-  console.log(data)
-  console.log(columns)
+  console.log(data);
+  console.log(columns);
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 10;
@@ -98,10 +98,10 @@ function Table<T>({ columns, data, onRefresh }: TableProps<T>) {
             return <AsistXProgramar />;
           }
         case 3:
-          if (flaglinea == 2) {
+          // if (flaglinea == 2) {
             return <ReviLinea />;
-          }
-          break;
+
+          // break;
         case 4:
           return <Auditor />;
         case 5:
@@ -208,9 +208,9 @@ function Table<T>({ columns, data, onRefresh }: TableProps<T>) {
   const handleViewPost = (codpostul: string) => {
     let codigo = codpostul.split('-')[1];
 
-    let secretKey = '3L8GGWj/D683jhSvKmhFuV/7AjAuK123HOG17fabIKM='
+    let secretKey = '3L8GGWj/D683jhSvKmhFuV/7AjAuK123HOG17fabIKM=';
 
-    let hash = CryptoJS.AES.encrypt(codigo.toString(),secretKey).toString();
+    let hash = CryptoJS.AES.encrypt(codigo.toString(), secretKey).toString();
     let safeHash = encodeURIComponent(hash);
 
     navigate(`/seltiProceso/${safeHash}`);

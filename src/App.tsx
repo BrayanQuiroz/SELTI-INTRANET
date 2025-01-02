@@ -10,6 +10,7 @@ import GestionEdicion from './pages/Admin/GestionEdicion.tsx';
 import UsuariosInternos from './pages/Admin/UsuariosInternos.tsx';
 import SeltiProceso from './pages/SeltiProceso';
 import ViewPostulante from './pages/SeltiProceso/ViewPostulante.tsx';
+import Postulante from './pages/Postulante';
 
 function App() {
   return (
@@ -60,6 +61,7 @@ function App() {
                 />
               }
             ></Route>
+            <Route path="/postulante" element={<Postulante />} />
           </Routes>
         </MainLayout>
       </AuthProvider>

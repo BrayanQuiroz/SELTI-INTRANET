@@ -6,20 +6,22 @@ import EvaluacionRequisitos from '../../components/ViewPostulacion/EvaluacionReq
 import { useEffect, useState } from 'react';
 import config from '../../utils/urls.ts';
 import axios from 'axios';
+import AsistenciaTecnica from './AsistenciaTecnica.tsx';
 
 const ViewPostulante = () => {
+  const { hashCodpostul } = useParams();
+  const decryptHash: string = hashCodpostul;
 
-  const { hashCodpostul} = useParams();
-  const decryptHash: string = hashCodpostul
-
-  const secretKey = '3L8GGWj/D683jhSvKmhFuV/7AjAuK123HOG17fabIKM='
+  const secretKey = '3L8GGWj/D683jhSvKmhFuV/7AjAuK123HOG17fabIKM=';
   const decodedHash = decodeURIComponent(decryptHash);
   const decrypt = CryptoJS.AES.decrypt(decodedHash, secretKey);
   const codpostul = decrypt.toString(CryptoJS.enc.Utf8);
 
+  const postNumber = Number(codpostul);
+
   const api = axios.create({
-    baseURL: config.apiUrl
-  })
+    baseURL: config.apiUrl,
+  });
 
   const [listPost, setListPost] = useState();
 
@@ -29,7 +31,7 @@ const ViewPostulante = () => {
         const response = await api.get(`/apiListar/VistaPostulacion/${codpostul}/`);
         setListPost(response.data);
       } catch (e) {
-        console.error("Error al obtener los roles:", e);
+        console.error('Error al obtener los roles:', e);
       }
     };
     Listar();
@@ -47,7 +49,7 @@ const ViewPostulante = () => {
       <main className="max-w-[1300px] mx-auto ">
         <div className="pt-[3rem]">
           <div className="mb-[4rem]">
-            <PostulacionView  codpostul={codpostul}/>
+            <PostulacionView codpostul={postNumber} />
             <EvaluacionRequisitos
               ruc={ruc}
               razonSocial={razonSocial}
@@ -55,6 +57,7 @@ const ViewPostulante = () => {
               etapaEdicion={etapaEdicion}
               correo={correo}
             />
+            <AsistenciaTecnica codpostul={postNumber} />
           </div>
         </div>
       </main>

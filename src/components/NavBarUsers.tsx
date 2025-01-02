@@ -13,7 +13,6 @@ const NavBarUsers = ({ rol }: TypeRol) => {
 
   const navigate = useNavigate();
 
-
   return (
     <div className="w-full bg-white">
       <div className=" flex-between max-w-[1300px] mx-auto pt-3 pb-3">

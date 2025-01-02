@@ -29,10 +29,17 @@ const Login = () => {
 
   const { register, handleSubmit } = useForm<FormData>();
 
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false)
+
+  const [usuarioReset, setUsuarioReset] = useState();
+  const [resetPass, setResetPass] = useState<string>("");
+  const [resetRepit, setResetRepit] = useState<string>("");
+
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const { usuario, password } = data;
+
+    setUsuarioReset(usuario)
 
     if (!usuario || !password) {
       toast.error('Ingrese usuario y contraseña', {
@@ -100,9 +107,10 @@ const Login = () => {
     }
   };
 
-  const handleUpdatePassword: SubmitHandler<FormData> = async (data) => {
-    const { resetPass, resetRepit, usuario } = data;
+  console.log(`aqui el usuario gaa: ${usuarioReset}`)
 
+  const handleUpdatePassword= async () => {
+    
     const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*]{11,}$/;
 
     if (resetPass !== resetRepit) {
@@ -127,7 +135,7 @@ const Login = () => {
 
     try {
       await api.put('/Update/SeltiResetPass/', {
-        usuario: usuario,
+        usuario: usuarioReset,
         passusu: resetPass,
       });
       setIsModalOpen(false);
@@ -193,34 +201,31 @@ const Login = () => {
       <Modal
         isOpen={isModalOpen}
         textModal="Actualizar contraseña"
+        onAccept={handleUpdatePassword}
         onClose={() => setIsModalOpen(false)}
       >
-        <form onSubmit={handleSubmit(handleUpdatePassword)}>
+        <form
+        className='flexCenter text-center'
+        >
           <Input
             label="Nueva contraseña"
-            className="w-[400px] items-center"
+            className="w-[400px] items-center mb-4"
             type="password"
             id="resetPass"
-            {...register('resetPass')}
+            onChange={(e)=>{setResetPass(e.target.value)}}
           />
           <Input
             label="Repita nueva contraseña"
-            className="w-[400px] items-center"
+            className="w-[400px] items-center mb-4"
             type="password"
             id="resetRepit"
-            {...register('resetRepit')}
+            onChange={(e)=>{setResetRepit(e.target.value)}}
           />
           <div className="w-full flex justify-center items-center">
             <p className="w-[400px] text-[15px]">
               La contraseña debe tener 12 dígitos y al menos una mayúscula, un carácter
               especial y un número
             </p>
-          </div>
-          <div className="w-full flex justify-end p-4">
-            <Buttons className="text-sm mr-4 text-white">ACTUALIZAR</Buttons>
-            <Buttons className="HoverButton" onClick={() => setIsModalOpen(false)}>
-              CANCELAR
-            </Buttons>
           </div>
         </form>
       </Modal>

@@ -16,7 +16,7 @@ export const EvaluacionReque = () => {
 
 export const AsistXProgramar = () => {
   return (
-    <div className="text-white bg-[#FF7043] py-1.5 px-2.5 rounded-[25px] font-bold w-[109px]">
+    <div className="text-white bg-[#FF7043] py-1.5 px-2.5 rounded-[25px] font-bold w-[154px]">
       Programar reunión
     </div>
   );

@@ -16,28 +16,28 @@ import Buttons from '../Buttons.tsx';
 import EvaluacionRequiCompl from './EvaluacionRequiCompl.tsx';
 import { useEvaluacion } from '../../utils/functions/useEvaluacion.ts';
 
-
 type Props = {
   ruc: number;
   razonSocial: string;
   represent: string;
   etapaEdicion: number;
   correo: string;
-}
+};
 
-const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:Props) => {
-
+const EvaluacionRequisitos = ({
+  ruc,
+  razonSocial,
+  represent,
+  etapaEdicion,
+  correo,
+}: Props) => {
   const api = axios.create({
-    baseURL: config.apiUrl
-  })
+    baseURL: config.apiUrl,
+  });
 
-  console.log(`el valor del ruc ${ruc}`)
+  const evaluacion = useEvaluacion(ruc);
 
-  const [updateState, setUpdateState] = useState(false)
-
-  const evaluacion = useEvaluacion(ruc, updateState);
-
-  console.log(evaluacion)
+  console.log(evaluacion);
 
   const [count, setCount] = useState(0);
   const [isTrueThree, setIsTrueThree] = useState(false);
@@ -46,24 +46,23 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
   useEffect(() => {
     if (evaluacion.evaluatres === 1) {
       setIsTrueThree(true);
-      console.log('entre')
+      console.log('entre');
     } else {
       setIsNeutro(false);
     }
   }, [evaluacion]);
 
-
-  const handlAprobarThree = ()=>{
+  const handlAprobarThree = () => {
     setIsTrueThree(!isTrueThree);
-    setIsNeutro(true)
-    setCount(1)
-  }
+    setIsNeutro(true);
+    setCount(1);
+  };
 
-  const handleIsNot = ()=>{
-    setIsNeutro(!isNeutro)
+  const handleIsNot = () => {
+    setIsNeutro(!isNeutro);
     setIsTrueThree(false);
-    setCount(0)
-  }
+    setCount(0);
+  };
 
   const EvaluacionAprobada = async () => {
     try {
@@ -73,36 +72,34 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
         flagevalua: 1,
         razonSocial: razonSocial,
         RepresentanteLegal: represent,
-        correo: correo
-      })
-      setUpdateState(true)
-
+        correo: correo,
+      });
     } catch (error) {
-      console.error(error.response.data.error)
+      console.error(error.response.data.error);
     }
-  }
+  };
 
-  const handleAprobar = ()=>{
-    if (count === 1){
+  const handleAprobar = () => {
+    if (count === 1) {
       Swal.fire({
-        title: "Confirmación",
-        html: "¿Estás seguro de <b>APROBAR</b> la preevalicación de requisitos?",
-        icon: "warning",
+        title: 'Confirmación',
+        html: '¿Estás seguro de <b>APROBAR</b> la preevalicación de requisitos?',
+        icon: 'warning',
         showCancelButton: true,
-        confirmButtonText: "Aceptar",
-        cancelButtonText: "Atrás",
+        confirmButtonText: 'Aceptar',
+        cancelButtonText: 'Atrás',
       }).then((result) => {
         if (result.isConfirmed) {
-          EvaluacionAprobada()
-          toast.success('Preevalicación de requisitos fue aprobada')
+          EvaluacionAprobada();
+          toast.success('Preevalicación de requisitos fue aprobada');
         }
       });
-    }else{
+    } else {
       toast.error('Debe marcar el check para aprobar.', {
         style: { background: '#333', color: '#fff' },
       });
     }
-  }
+  };
 
   return (
     <div className=" p-[1rem] bg-white  mb-[1rem]">
@@ -122,16 +119,22 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
               <header>
                 <span className="text-2xl font-bold">Preevaluación de requisitos:</span>
               </header>
-              <article className='text-gray-500 mt-2 flex  items-center w-full'>
-                <p className='pr-[12.7rem]'>Se encuentra activa en el sistema de la SUNAT:</p>
+              <article className="text-gray-500 mt-2 flex  items-center w-full">
+                <p className="pr-[12.7rem]">
+                  Se encuentra activa en el sistema de la SUNAT:
+                </p>
                 <Evaluacion isTrue={true} />
               </article>
-              <article className='text-gray-500 mt-2 flex  items-center w-full'>
-                <p className='pr-[11.8rem]'>Contribuyente habido en el sistema de la SUNAT:</p>
+              <article className="text-gray-500 mt-2 flex  items-center w-full">
+                <p className="pr-[11.8rem]">
+                  Contribuyente habido en el sistema de la SUNAT:
+                </p>
                 <Evaluacion isTrue={true} />
               </article>
-              <article className='text-gray-500 mt-2 flex  items-center w-full'>
-                <p className='pr-[3rem]'>Realiza la actividad económica establecida para la presente edición:</p>
+              <article className="text-gray-500 mt-2 flex  items-center w-full">
+                <p className="pr-[3rem]">
+                  Realiza la actividad económica establecida para la presente edición:
+                </p>
                 {(evaluacion?.evaluatres === 1 || evaluacion?.evaluatres === 0) && (
                   <Evaluacion
                     disabled={isTrueThree}
@@ -148,7 +151,7 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
                 )}
               </article>
               {evaluacion?.evaluatres === 0 && (
-                <article className='mt-4'>
+                <article className="mt-4">
                   <Buttons
                     className="text-white bg-redMain py-1 mr-[1rem]
                   HoverButtonRed w-[120px]"
@@ -158,7 +161,8 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
                   </Buttons>
                   <Buttons
                     // onClick={handleDesaprobar}
-                    className=" bg-white HoverButton py-1">
+                    className=" bg-white HoverButton py-1"
+                  >
                     Desaprobar
                   </Buttons>
                 </article>
@@ -166,6 +170,10 @@ const EvaluacionRequisitos = ({ruc, razonSocial,represent, etapaEdicion,correo}:
             </section>
             <EvaluacionRequiCompl
               ruc={ruc}
+              razonSocial={razonSocial}
+              represent={represent}
+              etapaEdicion={etapaEdicion}
+              correo={correo}
             />
           </AccordionItemPanel>
         </AccordionItem>
