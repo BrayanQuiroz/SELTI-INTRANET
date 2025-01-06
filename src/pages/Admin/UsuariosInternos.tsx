@@ -174,7 +174,8 @@ const UsuariosInternos = () => {
   };
 
   const handlCreateUser = async () => {
-    const { rol, apellidoPaterno, correo, tipodocumento, codusu, numdoc } = formData;
+    const { rol, apellidoPaterno, correo, tipodocumento, codusu, numdoc } =
+      formData;
 
     let rolUsers: string = '';
     let CreateBody: {};

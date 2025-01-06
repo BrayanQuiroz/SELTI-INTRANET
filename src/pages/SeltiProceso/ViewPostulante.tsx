@@ -28,7 +28,9 @@ const ViewPostulante = () => {
   useEffect(() => {
     const Listar = async () => {
       try {
-        const response = await api.get(`/apiListar/VistaPostulacion/${codpostul}/`);
+        const response = await api.get(
+          `/apiListar/VistaPostulacion/${codpostul}/`,
+        );
         setListPost(response.data);
       } catch (e) {
         console.error('Error al obtener los roles:', e);

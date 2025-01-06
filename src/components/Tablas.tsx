@@ -99,9 +99,9 @@ function Table<T>({ columns, data, onRefresh }: TableProps<T>) {
           }
         case 3:
           // if (flaglinea == 2) {
-            return <ReviLinea />;
+          return <ReviLinea />;
 
-          // break;
+        // break;
         case 4:
           return <Auditor />;
         case 5:
@@ -264,7 +264,9 @@ function Table<T>({ columns, data, onRefresh }: TableProps<T>) {
                   {col.key === 'acciones' ? (
                     <div className="flex">
                       <button
-                        onClick={() => handleAsigPost(row.codpostul, row.ruc, row.codusu)}
+                        onClick={() =>
+                          handleAsigPost(row.codpostul, row.ruc, row.codusu)
+                        }
                         className="IconTheme mr-4"
                       >
                         <FaUserAlt />

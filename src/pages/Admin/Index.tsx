@@ -10,7 +10,9 @@ const Index = () => {
         {location.pathname === '/admin/' && (
           <div className="w-[600px] pt-[6rem] mx-auto text-center">
             <p className="text-5xl pt-2 text-gray-600 font-bold">Bienvenido</p>
-            <p className="text-4xl pt-2 text-gray-600 font-bold">Sistema de Sello</p>
+            <p className="text-4xl pt-2 text-gray-600 font-bold">
+              Sistema de Sello
+            </p>
             <p className="text-4xl pb-4 text-redMain font-bold">
               LIBRE DE TRABAJO INFANTIL
             </p>

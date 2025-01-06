@@ -69,7 +69,9 @@ const PostulacionView = ({ codpostul }: PostProps) => {
   useEffect(() => {
     const Listar = async () => {
       try {
-        const response = await api.get(`/apiListar/VistaPostulacion/${codpostul}/`);
+        const response = await api.get(
+          `/apiListar/VistaPostulacion/${codpostul}/`,
+        );
         SetListPostulacion(response?.data);
       } catch (e) {
         console.error('Error al obtener VistaPostulacion:', e);
@@ -195,13 +197,19 @@ const PostulacionView = ({ codpostul }: PostProps) => {
                 </header>
                 <div className="grid grid-cols-3 gap-6 text-gray-500 mt-4">
                   <span>
-                    <p>Tipo de Documento: {ListPostulacion?.postulacion?.tipdoc}</p>
+                    <p>
+                      Tipo de Documento: {ListPostulacion?.postulacion?.tipdoc}
+                    </p>
                   </span>
                   <span>
-                    <p>Nº de documento: {ListPostulacion?.postulacion?.numdoc}</p>
+                    <p>
+                      Nº de documento: {ListPostulacion?.postulacion?.numdoc}
+                    </p>
                   </span>
                   <span>
-                    <p>Nombre(s): {ListPostulacion?.postulacion?.nompernatural}</p>
+                    <p>
+                      Nombre(s): {ListPostulacion?.postulacion?.nompernatural}
+                    </p>
                   </span>
                   <span>
                     <p>
@@ -214,7 +222,10 @@ const PostulacionView = ({ codpostul }: PostProps) => {
                     <p>Email: {ListPostulacion?.postulacion?.correoRegis}</p>
                   </span>
                   <span>
-                    <p>Nº de celular: {ListPostulacion?.postulacion?.celularRegis}</p>
+                    <p>
+                      Nº de celular:{' '}
+                      {ListPostulacion?.postulacion?.celularRegis}
+                    </p>
                   </span>
                   <span>
                     <p>Cargo: {ListPostulacion?.postulacion?.cargo}</p>
@@ -223,14 +234,20 @@ const PostulacionView = ({ codpostul }: PostProps) => {
               </article>
               <article className="flex flex-wrap">
                 <header className="w-full mt-8">
-                  <span className="text-xl mr-4 font-bold">Datos generales: </span>
+                  <span className="text-xl mr-4 font-bold">
+                    Datos generales:{' '}
+                  </span>
                 </header>
                 <div className="grid grid-cols-3 gap-6 text-gray-500 mt-4">
                   <span>
-                    <p>Tipo de actividad: {ListPostulacion?.postulacion?.tipdoc}</p>
+                    <p>
+                      Tipo de actividad: {ListPostulacion?.postulacion?.tipdoc}
+                    </p>
                   </span>
                   <span>
-                    <p>Persona jurídica: {ListPostulacion?.postulacion?.numdoc}</p>
+                    <p>
+                      Persona jurídica: {ListPostulacion?.postulacion?.numdoc}
+                    </p>
                   </span>
                   <span>
                     <p> RUC: {ListPostulacion?.postulacion?.nompernatural}</p>
@@ -243,11 +260,15 @@ const PostulacionView = ({ codpostul }: PostProps) => {
                     </p>
                   </span>
                   <span>
-                    <p>Nº de trabajadores: {ListPostulacion?.postulacion?.correoRegis}</p>
+                    <p>
+                      Nº de trabajadores:{' '}
+                      {ListPostulacion?.postulacion?.correoRegis}
+                    </p>
                   </span>
                   <span>
                     <p>
-                      Cumplimiento social: {ListPostulacion?.postulacion?.celularRegis}
+                      Cumplimiento social:{' '}
+                      {ListPostulacion?.postulacion?.celularRegis}
                     </p>
                   </span>
                   <span>
@@ -263,7 +284,10 @@ const PostulacionView = ({ codpostul }: PostProps) => {
                     <p>Provincia: {ListPostulacion?.postulacion?.numdoc}</p>
                   </span>
                   <span>
-                    <p> Distrito: {ListPostulacion?.postulacion?.nompernatural}</p>
+                    <p>
+                      {' '}
+                      Distrito: {ListPostulacion?.postulacion?.nompernatural}
+                    </p>
                   </span>
                   <span>
                     <p>
@@ -276,7 +300,9 @@ const PostulacionView = ({ codpostul }: PostProps) => {
                     <p>Exporta: {ListPostulacion?.postulacion?.correoRegis}</p>
                   </span>
                   <span>
-                    <p>Página web: {ListPostulacion?.postulacion?.celularRegis}</p>
+                    <p>
+                      Página web: {ListPostulacion?.postulacion?.celularRegis}
+                    </p>
                   </span>
                   <span>
                     <p>Celular: {ListPostulacion?.postulacion?.cargo}</p>
@@ -288,7 +314,9 @@ const PostulacionView = ({ codpostul }: PostProps) => {
               </article>
               <article className="flex flex-wrap">
                 <header className="w-full mt-8 mb-4">
-                  <span className="text-xl mr-4 font-bold">Representante(s): </span>
+                  <span className="text-xl mr-4 font-bold">
+                    Representante(s):{' '}
+                  </span>
                 </header>
                 {isLoading && (
                   <TablasSimples columns={columnsRP} data={represent || []} />
@@ -296,10 +324,15 @@ const PostulacionView = ({ codpostul }: PostProps) => {
               </article>
               <article className="flex flex-wrap">
                 <header className="w-full mt-8 mb-4">
-                  <span className="text-xl mr-4 font-bold">Punto(s) Focale(s): </span>
+                  <span className="text-xl mr-4 font-bold">
+                    Punto(s) Focale(s):{' '}
+                  </span>
                 </header>
                 {isLoading && (
-                  <TablasSimples columns={columnsPF} data={puntosFocales || []} />
+                  <TablasSimples
+                    columns={columnsPF}
+                    data={puntosFocales || []}
+                  />
                 )}
               </article>
               <article className="flex flex-wrap">
@@ -309,7 +342,10 @@ const PostulacionView = ({ codpostul }: PostProps) => {
                   </span>
                 </header>
                 {isLoading && (
-                  <TablasSimples columns={columnsUP} data={unidadProductiva || []} />
+                  <TablasSimples
+                    columns={columnsUP}
+                    data={unidadProductiva || []}
+                  />
                 )}
               </article>
               {ListPostulacion?.postulacion?.codetapa === 1 && (

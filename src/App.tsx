@@ -22,7 +22,9 @@ function App() {
             <Route path="/recuperar" element={<Recuperar />} />
             <Route
               path="/admin/"
-              element={<ProtectedRoute element={<Admin />} roles={['ADMINISTRADOR']} />}
+              element={
+                <ProtectedRoute element={<Admin />} roles={['ADMINISTRADOR']} />
+              }
             >
               <Route
                 path="/admin/gestionEdicion"
@@ -48,7 +50,11 @@ function App() {
               element={
                 <ProtectedRoute
                   element={<SeltiProceso />}
-                  roles={['EQUIPO-TECNICO', 'SECRETARIA-TECNICA', 'AUDITOR-EXTERNO']}
+                  roles={[
+                    'EQUIPO-TECNICO',
+                    'SECRETARIA-TECNICA',
+                    'AUDITOR-EXTERNO',
+                  ]}
                 />
               }
             ></Route>
@@ -57,7 +63,11 @@ function App() {
               element={
                 <ProtectedRoute
                   element={<ViewPostulante />}
-                  roles={['EQUIPO-TECNICO', 'SECRETARIA-TECNICA', 'AUDITOR-EXTERNO']}
+                  roles={[
+                    'EQUIPO-TECNICO',
+                    'SECRETARIA-TECNICA',
+                    'AUDITOR-EXTERNO',
+                  ]}
                 />
               }
             ></Route>

@@ -38,4 +38,7 @@ body{
     .IconTheme{
         @apply text-redMain text-xl cursor-pointer;
     }
+    .ButtonRed{
+        @apply text-white bg-redMain px-4 py-2 mr-[1rem] HoverButtonRed
+    }
 }

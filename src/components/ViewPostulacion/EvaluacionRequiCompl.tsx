@@ -137,9 +137,12 @@ const EvaluacionRequiCompl = ({
       }).then((result) => {
         if (result.isConfirmed) {
           handleEvaluacion(4);
-          toast.success('Evaluación complementaria de requisitos fue desaprobada', {
-            style: { background: '#333', color: '#fff' },
-          });
+          toast.success(
+            'Evaluación complementaria de requisitos fue desaprobada',
+            {
+              style: { background: '#333', color: '#fff' },
+            },
+          );
         }
       });
     } else {
@@ -161,9 +164,12 @@ const EvaluacionRequiCompl = ({
       }).then((result) => {
         if (result.isConfirmed) {
           handleEvaluacion(3);
-          toast.success('Evaluación complementaria de requisitos fue aprobada', {
-            style: { background: '#333', color: '#fff' },
-          });
+          toast.success(
+            'Evaluación complementaria de requisitos fue aprobada',
+            {
+              style: { background: '#333', color: '#fff' },
+            },
+          );
         }
       });
     } else {
@@ -183,11 +189,12 @@ const EvaluacionRequiCompl = ({
       <article className="text-gray-500 mt-2 flex  items-center w-full">
         <div className="w-[520px] mr-[3rem]">
           <p className="text-justify leading-relaxed">
-            No presenta sanción por infracción muy grave a la normativa sociolaboral, en
-            materias de derechos fundamentales y de seguridad y salud en el trabajo, así
-            como a la labor inspectiva, mediante una resolución de multa firme o
-            consentida, con anterioridad de dos años a la fecha de solicitud de
-            postulación al Reconocimiento “Sello Libre de Trabajo Infantil”.
+            No presenta sanción por infracción muy grave a la normativa
+            sociolaboral, en materias de derechos fundamentales y de seguridad y
+            salud en el trabajo, así como a la labor inspectiva, mediante una
+            resolución de multa firme o consentida, con anterioridad de dos años
+            a la fecha de solicitud de postulación al Reconocimiento “Sello
+            Libre de Trabajo Infantil”.
           </p>
         </div>
 
@@ -205,11 +212,11 @@ const EvaluacionRequiCompl = ({
       <article className="text-gray-500 mt-4 flex  items-center w-full">
         <div className="w-[520px] mr-[3rem]">
           <p className="text-justify leading-relaxed">
-            No registra sentencias consentidas y/o ejecutoriadas emitidas por el Poder
-            Judicial, declarando fundada una demanda laboral incumplimiento de la
-            normativa en materia de derechos laborales fundamentales y/o de la seguridad y
-            salud en el trabajo, con anterioridad de dos años a la fecha de solicitud de
-            la postulación.
+            No registra sentencias consentidas y/o ejecutoriadas emitidas por el
+            Poder Judicial, declarando fundada una demanda laboral
+            incumplimiento de la normativa en materia de derechos laborales
+            fundamentales y/o de la seguridad y salud en el trabajo, con
+            anterioridad de dos años a la fecha de solicitud de la postulación.
           </p>
         </div>
 
@@ -227,11 +234,16 @@ const EvaluacionRequiCompl = ({
       <article className="text-gray-500 mt-4 flex  items-center w-full">
         <div className="w-[520px] mr-[3rem]">
           <p className="text-justify leading-relaxed">
-            Registra proceso en trámite con sentencia de primera instancia por vulneración
-            de derechos fundamentales laborales y/o de la seguridad y salud en el trabajo.
+            Registra proceso en trámite con sentencia de primera instancia por
+            vulneración de derechos fundamentales laborales y/o de la seguridad
+            y salud en el trabajo.
           </p>
         </div>
-        <Evaluacion disabled={isTrueSix} isTrue={isTrueSix} onClick={handlAprobarSix} />
+        <Evaluacion
+          disabled={isTrueSix}
+          isTrue={isTrueSix}
+          onClick={handlAprobarSix}
+        />
         <EvaluacionIsNot
           disabled={isTrueSix}
           isNeutro={isNeutroSix}
@@ -247,7 +259,10 @@ const EvaluacionRequiCompl = ({
           >
             Aprobar
           </Buttons>
-          <Buttons onClick={handleDesaprobar} className=" bg-white HoverButton py-1">
+          <Buttons
+            onClick={handleDesaprobar}
+            className=" bg-white HoverButton py-1"
+          >
             Desaprobar
           </Buttons>
         </article>

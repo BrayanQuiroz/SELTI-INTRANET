@@ -117,7 +117,9 @@ const EvaluacionRequisitos = ({
           <AccordionItemPanel className="mt-4">
             <section className="ml-[2.5rem]">
               <header>
-                <span className="text-2xl font-bold">Preevaluación de requisitos:</span>
+                <span className="text-2xl font-bold">
+                  Preevaluación de requisitos:
+                </span>
               </header>
               <article className="text-gray-500 mt-2 flex  items-center w-full">
                 <p className="pr-[12.7rem]">
@@ -133,16 +135,19 @@ const EvaluacionRequisitos = ({
               </article>
               <article className="text-gray-500 mt-2 flex  items-center w-full">
                 <p className="pr-[3rem]">
-                  Realiza la actividad económica establecida para la presente edición:
+                  Realiza la actividad económica establecida para la presente
+                  edición:
                 </p>
-                {(evaluacion?.evaluatres === 1 || evaluacion?.evaluatres === 0) && (
+                {(evaluacion?.evaluatres === 1 ||
+                  evaluacion?.evaluatres === 0) && (
                   <Evaluacion
                     disabled={isTrueThree}
                     isTrue={isTrueThree}
                     onClick={handlAprobarThree}
                   />
                 )}
-                {(evaluacion?.evaluatres === 2 || evaluacion?.evaluatres === 0) && (
+                {(evaluacion?.evaluatres === 2 ||
+                  evaluacion?.evaluatres === 0) && (
                   <EvaluacionIsNot
                     disabled={isTrueThree}
                     isNeutro={isNeutro}

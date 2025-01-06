@@ -29,17 +29,16 @@ const Login = () => {
 
   const { register, handleSubmit } = useForm<FormData>();
 
-  const [isModalOpen, setIsModalOpen] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [usuarioReset, setUsuarioReset] = useState();
-  const [resetPass, setResetPass] = useState<string>("");
-  const [resetRepit, setResetRepit] = useState<string>("");
-
+  const [resetPass, setResetPass] = useState<string>('');
+  const [resetRepit, setResetRepit] = useState<string>('');
 
   const onSubmit: SubmitHandler<FormData> = async (data) => {
     const { usuario, password } = data;
 
-    setUsuarioReset(usuario)
+    setUsuarioReset(usuario);
 
     if (!usuario || !password) {
       toast.error('Ingrese usuario y contraseña', {
@@ -107,10 +106,9 @@ const Login = () => {
     }
   };
 
-  console.log(`aqui el usuario gaa: ${usuarioReset}`)
+  console.log(`aqui el usuario gaa: ${usuarioReset}`);
 
-  const handleUpdatePassword= async () => {
-    
+  const handleUpdatePassword = async () => {
     const regexPassword = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d!@#$%^&*]{11,}$/;
 
     if (resetPass !== resetRepit) {
@@ -162,8 +160,12 @@ const Login = () => {
       >
         <div className="flexCenter w-[350px]  border-b-4 border-red-600 mb-4">
           <img className="w-[90px] mt-4 self-center" src={logoSelti} alt="" />
-          <p className="text-xl pt-2 text-gray-600 font-bold">Sistema de Sello</p>
-          <p className="text-xl pb-4 text-redMain font-bold">LIBRE DE TRABAJO INFANTIL</p>
+          <p className="text-xl pt-2 text-gray-600 font-bold">
+            Sistema de Sello
+          </p>
+          <p className="text-xl pb-4 text-redMain font-bold">
+            LIBRE DE TRABAJO INFANTIL
+          </p>
         </div>
         <div className="">
           <Input
@@ -189,7 +191,11 @@ const Login = () => {
           >
             INICIAR SESIÓN
           </Buttons>
-          <a href="" className="mb-6 text-sm" onClick={() => navigate('/recuperar')}>
+          <a
+            href=""
+            className="mb-6 text-sm"
+            onClick={() => navigate('/recuperar')}
+          >
             <span className="text-blue-500 no-underline hover:underline hover:text-blue-700">
               ¿HAS OLVIDADO TU CONTRASEÑA?
               <span className="text-2xl">&#129300;</span>
@@ -204,27 +210,29 @@ const Login = () => {
         onAccept={handleUpdatePassword}
         onClose={() => setIsModalOpen(false)}
       >
-        <form
-        className='flexCenter text-center'
-        >
+        <form className="flexCenter text-center">
           <Input
             label="Nueva contraseña"
             className="w-[400px] items-center mb-4"
             type="password"
             id="resetPass"
-            onChange={(e)=>{setResetPass(e.target.value)}}
+            onChange={(e) => {
+              setResetPass(e.target.value);
+            }}
           />
           <Input
             label="Repita nueva contraseña"
             className="w-[400px] items-center mb-4"
             type="password"
             id="resetRepit"
-            onChange={(e)=>{setResetRepit(e.target.value)}}
+            onChange={(e) => {
+              setResetRepit(e.target.value);
+            }}
           />
           <div className="w-full flex justify-center items-center">
             <p className="w-[400px] text-[15px]">
-              La contraseña debe tener 12 dígitos y al menos una mayúscula, un carácter
-              especial y un número
+              La contraseña debe tener 12 dígitos y al menos una mayúscula, un
+              carácter especial y un número
             </p>
           </div>
         </form>

@@ -23,7 +23,12 @@ export const Evaluacion = ({ isTrue, onClick, disabled }: PropsChecks) => {
   );
 };
 
-export const EvaluacionIsNot = ({ isTrue, onClick, isNeutro, disabled }: PropsChecks) => {
+export const EvaluacionIsNot = ({
+  isTrue,
+  onClick,
+  isNeutro,
+  disabled,
+}: PropsChecks) => {
   return (
     <button className="cursor-pointer" onClick={onClick} disabled={disabled}>
       <IoMdCloseCircleOutline

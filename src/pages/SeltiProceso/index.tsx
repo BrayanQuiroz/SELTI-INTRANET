@@ -47,7 +47,11 @@ const Index = () => {
               <h2 className="text-3xl">Bandeja de pendientes</h2>
             </div>
             <div>
-              <Tablas onRefresh={setIsRefresh} columns={columns} data={ListPost} />
+              <Tablas
+                onRefresh={setIsRefresh}
+                columns={columns}
+                data={ListPost}
+              />
             </div>
           </div>
         </div>
