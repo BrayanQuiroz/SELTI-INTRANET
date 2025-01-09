@@ -27,7 +27,35 @@ const Lineamiento = ({ contenidoLinea, contenidoEstan }: Props) => {
     baseURL: config.apiUrl
   })
   const {authData} = useContext(AuthContext)
-  const rucUsuario:string = authData?.rucUsuario
+  const rucUsuario:string = authData?.rucUsuario;
+  const roleName: string = authData?.roleName;
+  const usernameid: string = authData?.usernameid;
+
+  const [flagLinea, setFlagLinea] = useState();
+  const [codeEtapa, setCodeEtapa] = useState();
+  const [codeEdicion, setCodeEdicion] = useState();
+
+
+  useEffect(() => {
+    const Listar2 = async () => {
+      try {
+        const response = await api.post('/apiListar/Etapas/',
+          {
+            ruc: rucUsuario
+          }
+        );
+        setFlagLinea(response.data.flaglinea);
+        setCodeEtapa(response.data.codetapa);
+        setCodeEdicion(response.data.codedicion);
+
+      } catch (e) {
+        console.error('Error al obtener la lista de postulacion:', e);
+      }
+    }
+    Listar2();
+  }, [usernameid]);
+
+  console.log(typeof  flagLinea)
 
 
   const [files, setFiles] = useState<FileRecord>({});
@@ -59,16 +87,37 @@ const Lineamiento = ({ contenidoLinea, contenidoEstan }: Props) => {
     }
     formData.append('ruc', rucUsuario);
 
-      await api.post(
-      '/files/UploadLineamientos/',
-      formData,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+    try {
 
+      const response = await api.post(
+        '/files/UploadLineamientos/',
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/form-data',
+          },
+
+        }
+      );
+
+      if (response.status === 201) {
+        toast.success('Archivos subidos correctamente')
+        try {
+          await api.post('/Update/Lineamiento/',{
+            rol: roleName,
+            value: 2,
+            ruc:rucUsuario
+          })
+
+        } catch (error) {
+          console.error(error);
+        }
       }
-    );
+
+    }catch (error){
+      toast.error(error.message);
+    }
+
   }
 
   const handleSendDocs =  () =>{
@@ -178,9 +227,12 @@ const Lineamiento = ({ contenidoLinea, contenidoEstan }: Props) => {
         <div className="ml-8">
           <p className="text-xl">Estándar 4.1:</p>
           <div className="text-gray-600 mb-4">{contenidoEstan}</div>
-          <InputFile
-            isLabel={files?.file8 ? true : false}
-            onChange={(e) => handleChange(e, 8)} className="mb-4" />
+          {flagLinea === 1 && (
+            <InputFile
+              isLabel={files?.file8 ? true : false}
+              onChange={(e) => handleChange(e, 8)} className="mb-4" />
+          )}
+
           <Input disabled label="Comentarios" />
         </div>
       </article>
@@ -190,21 +242,29 @@ const Lineamiento = ({ contenidoLinea, contenidoEstan }: Props) => {
         <div className="ml-8">
           <p className="text-xl">Estándar 5.1:</p>
           <div className="text-gray-600 mb-4">{contenidoEstan}</div>
-          <InputFile
-            isLabel={hasFile(9)}
-            onChange={(e) => handleChange(e, 9)} className="mb-4" />
+          { flagLinea === 1 && (
+            <InputFile
+              isLabel={hasFile(9)}
+              onChange={(e) => handleChange(e, 9)} className="mb-4" />
+          )
+          }
+
           <Input disabled label="Comentarios" />
         </div>
       </article>
-      <Buttons
-        className="flex items-center ButtonRed"
-        onClick={handleSendDocs}
-      >
-        ENVIAR
+      { flagLinea === 1 && (
+        <Buttons
+          className="flex items-center ButtonRed"
+          onClick={handleSendDocs}>
+          ENVIAR
           <IoDocumentTextSharp
             className='ml-2 text-xl'
           />
-      </Buttons>
+        </Buttons>
+      )
+
+      }
+
     </section>
   );
 };
