@@ -6,15 +6,15 @@ import {
   AccordionItemPanel,
 } from 'react-accessible-accordion';
 import { AiFillCaretRight } from 'react-icons/ai';
-import Buttons from '../Buttons.tsx';
+import Buttons from '../../../components/Buttons.tsx';
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
-import config from '../../utils/urls.ts';
-import TablasSimples from './TablasSimples.tsx';
+import config from '../../../utils/urls.ts';
+import TablasSimples from '../../../components/TablasSimples.tsx';
 import Swal from 'sweetalert2';
 import { toast, Toaster } from 'react-hot-toast';
-import { handlePostulacion } from '../../utils/functions/AprobarPostulacion.ts';
-import { AuthContext, defaultAuthData } from '../../context/AuthContext.tsx';
+import { handlePostulacion } from '../../../utils/functions/AprobarPostulacion.ts';
+import { AuthContext, defaultAuthData } from '../../../context/AuthContext.tsx';
 
 type PostProps = {
   codpostul: number;

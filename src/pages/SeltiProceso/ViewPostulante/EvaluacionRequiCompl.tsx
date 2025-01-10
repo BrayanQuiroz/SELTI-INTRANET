@@ -1,15 +1,15 @@
-import { Evaluacion, EvaluacionIsNot } from '../ChecksIcons.tsx';
-import Buttons from '../Buttons.tsx';
+import { Evaluacion, EvaluacionIsNot } from '../../../components/ChecksIcons.tsx';
+import Buttons from '../../../components/Buttons.tsx';
 import { useEffect, useState } from 'react';
-import { useEvaluacion } from '../../utils/functions/useEvaluacion.ts';
-import config from '../../utils/urls.ts';
+import { useEvaluacion } from '../../../utils/functions/useEvaluacion.ts';
+import config from '../../../utils/urls.ts';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { toast } from 'react-hot-toast';
 import {
   aprobarEvaluacion,
   enviarEvaluacion,
-} from '../../utils/functions/handleEvaluacion.ts';
+} from '../../../utils/functions/handleEvaluacion.ts';
 
 type Props = {
   ruc: number;

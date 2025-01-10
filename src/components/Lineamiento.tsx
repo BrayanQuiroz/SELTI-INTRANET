@@ -75,10 +75,6 @@ const Lineamiento = ({ contenidoLinea, contenidoEstan }: Props) => {
     }
   };
 
-  console.log(files.file1); // Primer archivo
-  console.log(files.file2); // Segundo archivo
-  console.log(files.file3); // Tercer archivo
-
   const handleDocs = async()=>{
     const formData = new FormData();
 
@@ -232,8 +228,9 @@ const Lineamiento = ({ contenidoLinea, contenidoEstan }: Props) => {
               isLabel={files?.file8 ? true : false}
               onChange={(e) => handleChange(e, 8)} className="mb-4" />
           )}
-
-          <Input disabled label="Comentarios" />
+          <Input
+            disabled
+            label="Comentarios" />
         </div>
       </article>
       <article className="mb-8">
@@ -248,7 +245,6 @@ const Lineamiento = ({ contenidoLinea, contenidoEstan }: Props) => {
               onChange={(e) => handleChange(e, 9)} className="mb-4" />
           )
           }
-
           <Input disabled label="Comentarios" />
         </div>
       </article>

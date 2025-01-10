@@ -9,7 +9,7 @@ import Admin from './pages/Admin/Index.tsx';
 import GestionEdicion from './pages/Admin/GestionEdicion.tsx';
 import UsuariosInternos from './pages/Admin/UsuariosInternos.tsx';
 import SeltiProceso from './pages/SeltiProceso';
-import ViewPostulante from './pages/SeltiProceso/ViewPostulante.tsx';
+import Index from './pages/SeltiProceso/ViewPostulante';
 import Postulante from './pages/Postulante';
 
 function App() {
@@ -62,7 +62,7 @@ function App() {
               path="/seltiProceso/:hashCodpostul"
               element={
                 <ProtectedRoute
-                  element={<ViewPostulante />}
+                  element={<Index />}
                   roles={[
                     'EQUIPO-TECNICO',
                     'SECRETARIA-TECNICA',

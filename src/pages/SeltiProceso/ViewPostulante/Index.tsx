@@ -1,14 +1,15 @@
-import NavBarUsers from '../../components/NavBarUsers.tsx';
+import NavBarUsers from '../../../components/NavBarUsers.tsx';
 import { useParams } from 'react-router-dom';
 import CryptoJS from 'crypto-js';
-import PostulacionView from '../../components/ViewPostulacion/PostulacionView.tsx';
-import EvaluacionRequisitos from '../../components/ViewPostulacion/EvaluacionRequisitos.tsx';
+import PostulacionView from './PostulacionView.tsx';
+import EvaluacionRequisitos from './EvaluacionRequisitos.tsx';
 import { useEffect, useState } from 'react';
-import config from '../../utils/urls.ts';
+import config from '../../../utils/urls.ts';
 import axios from 'axios';
-import AsistenciaTecnica from './AsistenciaTecnica.tsx';
+import AsistenciaTecnica from '../AsistenciaTecnica.tsx';
+import LineaEstan from './LineaEstan.tsx';
 
-const ViewPostulante = () => {
+const Index = () => {
   const { hashCodpostul } = useParams();
   const decryptHash: string = hashCodpostul;
 
@@ -57,9 +58,10 @@ const ViewPostulante = () => {
               razonSocial={razonSocial}
               represent={represent}
               etapaEdicion={etapaEdicion}
-              correo={correo}
-            />
-            <AsistenciaTecnica codpostul={postNumber} />
+              correo={correo}/>
+            <AsistenciaTecnica
+              codpostul={postNumber} />
+            <LineaEstan/>
           </div>
         </div>
       </main>
@@ -67,4 +69,4 @@ const ViewPostulante = () => {
   );
 };
 
-export default ViewPostulante;
+export default Index;

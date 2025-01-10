@@ -7,14 +7,14 @@ import {
   AccordionItemPanel,
 } from 'react-accessible-accordion';
 import { AiFillCaretRight } from 'react-icons/ai';
-import { Evaluacion, EvaluacionIsNot } from '../ChecksIcons.tsx';
+import { Evaluacion, EvaluacionIsNot } from '../../../components/ChecksIcons.tsx';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import config from '../../utils/urls.ts';
+import config from '../../../utils/urls.ts';
 import Swal from 'sweetalert2';
-import Buttons from '../Buttons.tsx';
+import Buttons from '../../../components/Buttons.tsx';
 import EvaluacionRequiCompl from './EvaluacionRequiCompl.tsx';
-import { useEvaluacion } from '../../utils/functions/useEvaluacion.ts';
+import { useEvaluacion } from '../../../utils/functions/useEvaluacion.ts';
 
 type Props = {
   ruc: number;

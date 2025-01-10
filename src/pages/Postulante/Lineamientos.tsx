@@ -3,10 +3,8 @@ import {
   contenidoLinea,
   contenidoEstan,
 } from '../../utils/lineamientosText.ts';
-import { useState } from 'react';
 
 const Lineamientos = () => {
-  const [file, setFile] = useState<number>();
 
   return (
     <section className="p-6 mt-[2rem] bg-white">
